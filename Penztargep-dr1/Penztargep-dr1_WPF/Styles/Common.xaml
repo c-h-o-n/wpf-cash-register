@@ -1,0 +1,55 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <!--Colors-->
+    <Color x:Key="ColorPrimary">#85bb65</Color>
+    <Color x:Key="ColorPrimaryDarker25">#648C4C</Color>
+    
+    <!--Brushes-->
+    <SolidColorBrush x:Key="BrushPrimary" Color="{StaticResource ColorPrimary}"/>
+    <SolidColorBrush x:Key="BrushPrimaryDarker25" Color="{StaticResource ColorPrimaryDarker25}"/>
+
+    <!--Rounded button-->
+    <Style  x:Key="RoundedButtonStyle" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="border" BorderThickness="2" CornerRadius="10">
+                        <Border.BorderBrush>
+                            <SolidColorBrush Color="Black" Opacity=".2"/>
+                        </Border.BorderBrush>
+                        <Border.Background>
+                            <SolidColorBrush Color="Transparent"/>
+                        </Border.Background>
+                        <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="true">
+                            <Setter Property="BorderBrush" TargetName="border" Value="Black"/>
+                            <Setter Property="Foreground"  Value="Black"/>
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="true">
+                            <Setter Property="Background" TargetName="border" Value="Black"/>
+                            <Setter Property="Opacity" Value=".5"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+     <!--Change Window State Button's style: it hides when window is not resizable-->
+    <Style x:Key="ChangeWindowStateButtonStyle" TargetType="Button" BasedOn="{StaticResource RoundedButtonStyle}">
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding ResizeMode, RelativeSource={RelativeSource AncestorType=Window}}" Value="NoResize">
+                <Setter Property="Visibility" Value="Collapsed"/>
+                <Setter Property="IsEnabled" Value="False"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding ResizeMode, RelativeSource={RelativeSource AncestorType=Window}}" Value="CanResize">
+                <Setter Property="Visibility" Value="Visible"/>
+                <Setter Property="IsEnabled" Value="True"/>
+            </DataTrigger>
+        </Style.Triggers>
+    </Style>
+
+</ResourceDictionary>

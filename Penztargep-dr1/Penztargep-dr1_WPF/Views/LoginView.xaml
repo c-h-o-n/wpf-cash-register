@@ -1,0 +1,66 @@
+﻿<Window x:Class="Penztargep_dr1_WPF.Views.LoginView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:nav="clr-namespace:Penztargep_dr1_WPF.State.Navigators"
+        xmlns:local="clr-namespace:Penztargep_dr1_WPF.Views"
+        xmlns:controls="clr-namespace:Penztargep_dr1_WPF.Controls"
+       
+        mc:Ignorable="d"
+        Title="LoginView" Height="400" Width="320"
+        WindowStartupLocation="CenterScreen"
+        AllowsTransparency="True" Background="Transparent"
+        WindowStyle="None"
+        ResizeMode="NoResize">
+
+    <!-- Set window chrome height -->
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="32"/>
+    </WindowChrome.WindowChrome>
+
+
+    <Border x:Name="brdWindow" BorderThickness="4" CornerRadius="20, 0, 20, 20">
+        <Border.BorderBrush>
+            <SolidColorBrush Color="{StaticResource ColorPrimaryDarker25}"/>
+        </Border.BorderBrush>
+        <Border.Background>
+            <SolidColorBrush Color="{StaticResource ColorPrimary}"/>
+        </Border.Background>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="32"/>
+                <RowDefinition Height="170"/>
+                <RowDefinition Height="55"/>
+                <RowDefinition Height="55"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+
+
+            <!-- WindowChrome -->
+            <controls:WindowChrome Grid.Row="0" HorizontalAlignment="Stretch" DataContext="{Binding WindowService}"/>
+
+            <!-- Logo -->
+            <Image Grid.Row="1" Source="pack://application:,,,/Assets/Images/logo.png" Width="100" Height="100" Opacity=".5"/>
+            <!-- Input fields -->
+            <Border Grid.Row="2" BorderThickness="2" CornerRadius="5"  Height="45" Width="258" VerticalAlignment="Center">
+                <Border.BorderBrush>
+                    <SolidColorBrush Color="Black" Opacity=".2"/>
+                </Border.BorderBrush>
+                <TextBox x:Name="txtUsername" Text="Felhasználónév" Style="{DynamicResource IBMPlexSans-Bold}" FontSize="20" BorderThickness="0" Background="Transparent" Foreground="Black" Opacity=".25" VerticalAlignment="Center"/>
+            </Border>
+            <!-- Password input -->
+            <Border Grid.Row="3" BorderThickness="2" CornerRadius="5"  Height="45" Width="258" VerticalAlignment="Center">
+                <Border.BorderBrush>
+                    <SolidColorBrush Color="Black" Opacity=".2"/>
+                </Border.BorderBrush>
+                <PasswordBox x:Name="txtPassword" Password="Jelszó"  Style="{DynamicResource IBMPlexSans-Bold}" FontSize="20" BorderThickness="0" Background="Transparent" Foreground="Black" Opacity=".25" VerticalAlignment="Center"/>
+            </Border>
+            <!-- Login button -->
+            <Button x:Name="btnLogin" Grid.Row="4" Command="{Binding LoginCommand}" Height="37" Width="150"  Content="Belépés" Style="{DynamicResource RoundedButtonStyle}" FontSize="20" IsDefault="True" Foreground="Black" Opacity=".25" />
+        </Grid>
+    </Border>
+
+</Window>
