@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+using Penztargep_dr1_Domain.Exceptions;
 using Penztargep_dr1_Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -7,44 +8,62 @@ using System.Threading.Tasks;
 
 namespace Penztargep_dr1_Domain.Services.AuthenticationServices {
     public class AuthenticationService : IAuthenticationService {
-        private readonly IDataService<Employee> _employeeService;
-        private readonly IDataService<User> _userService;
+        private readonly IUserService _userService;
 
-        public AuthenticationService(IDataService<Employee> employeeService, IDataService<User> userService) {
-            _employeeService = employeeService;
+        private readonly IPasswordHasher _passwordHasher;
+
+        public AuthenticationService(IUserService userService, IPasswordHasher passwordHasher) {
+
             _userService = userService;
+            _passwordHasher = passwordHasher;
         }
 
-        public async Task<Employee> Login(string username, string password) {
-            throw new NotImplementedException();
-        }
+        public async Task<User> Login(string username, string password) {
+            User storedUser = await _userService.GetByUsername(username);
 
-        public async Task<bool> Register(string username, string password, string confirmPassword, string firstName, string lastName, string title) {
-            if (password != confirmPassword) {
-                return false;
+            PasswordVerificationResult passwordVerificationResult = _passwordHasher.VerifyHashedPassword(storedUser.PasswordHash, password);
+
+            if (passwordVerificationResult != PasswordVerificationResult.Success) {
+                throw new InvalidPasswordException(username, password);
             }
 
-            // New employee
-            Employee employee = new Employee() {
-                FirstName = firstName,
-                LastName = lastName,
-                Title = title
-            };
-            // New user
-            IPasswordHasher hasher = new PasswordHasher();
-            string hashedPassword = hasher.HashPassword(password);
+            return storedUser;
+        }
 
-            User user = new User() {
-                Username = username,
-                PasswordHash = hashedPassword,
-                Employee = employee
-            };
+        public async Task<RegistrationResult> Register(string username, string password, string confirmPassword, string firstName, string lastName, string title) {
+            RegistrationResult result = RegistrationResult.Success;
 
-            // Insert into database
-            await _userService.Create(user);
+            if (password != confirmPassword) {
+                result = RegistrationResult.PasswordDoNotMatch;
+            }
 
+            User checkUserExists = await _userService.GetByUsername(username);
 
-            return true;
+            if (checkUserExists != null) {
+                result = RegistrationResult.UsernameAlreadyExists;
+            }
+
+            if (result == RegistrationResult.Success) {
+                // New employee
+                Employee employee = new Employee() {
+                    FirstName = firstName,
+                    LastName = lastName,
+                    Title = title
+                };
+                // New user
+                string hashedPassword = _passwordHasher.HashPassword(password);
+
+                User user = new User() {
+                    Username = username,
+                    PasswordHash = hashedPassword,
+                    Employee = employee
+                };
+
+                // Insert into database
+                await _userService.Create(user);
+            }
+
+            return result;
         }
     }
 }

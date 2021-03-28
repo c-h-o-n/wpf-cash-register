@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using Microsoft.AspNet.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Penztargep_dr1_Domain.Models;
 using Penztargep_dr1_Domain.Services;
@@ -24,6 +25,7 @@ namespace Penztargep_dr1_WPF {
             IServiceProvider serviceProvider = CreateServiceProvider();
             IAuthenticationService authentication = serviceProvider.GetRequiredService<IAuthenticationService>();
             authentication.Register("test", "test", "test", "testFirstName", "testLastName", "testTitle");
+            authentication.Login("test", "test");
 
             Window window = new LoginView();
             window.DataContext = new LoginViewModel(window);
@@ -36,9 +38,10 @@ namespace Penztargep_dr1_WPF {
         private IServiceProvider CreateServiceProvider() {
             IServiceCollection services = new ServiceCollection();
 
+            services.AddSingleton<IPasswordHasher, PasswordHasher>();
+
             services.AddSingleton<IAuthenticationService, AuthenticationService>();
-            services.AddSingleton<IDataService<User>, GenericDataService<User>>();
-            services.AddSingleton<IDataService<Employee>, GenericDataService<Employee>>();
+            services.AddSingleton<IUserService, UserService>();
             services.AddSingleton<PenztargepDbContextFactory>();
 
             return services.BuildServiceProvider();

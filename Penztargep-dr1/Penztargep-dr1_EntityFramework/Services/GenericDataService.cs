@@ -9,17 +9,12 @@ using System.Threading.Tasks;
 
 namespace Penztargep_dr1_EntityFramework.Services {
     public class GenericDataService<T> : IDataService<T> where T : DomainObject {
-        private readonly PenztargepDbContextFactory _contextFactory;
+        protected readonly PenztargepDbContextFactory _contextFactory;
 
         public GenericDataService(PenztargepDbContextFactory contextFactory) {
             _contextFactory = contextFactory;
         }
 
-        /// <summary>
-        /// Creates a new entity.
-        /// </summary>
-        /// <param name="entity"></param>
-        /// <returns>Created entity</returns>
         public async Task<T> Create(T entity) {
             using(PenztargepDbContext context = _contextFactory.CreateDbContext()) {
                 EntityEntry<T> createdResult = await context.Set<T>().AddAsync(entity);
@@ -28,12 +23,7 @@ namespace Penztargep_dr1_EntityFramework.Services {
                 return createdResult.Entity;
             }
         }
-        /// <summary>
-        /// Finds an entity by Id and removes it.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns>True if it was successfully removed.</returns>
-        /// TODO: check if delete operation was successful
+
         public async Task<bool> Delete(int id) {
             using (PenztargepDbContext context = _contextFactory.CreateDbContext()) {
                 T entity = await context.Set<T>().FirstOrDefaultAsync((entity) => entity.Id == id);
@@ -42,11 +32,6 @@ namespace Penztargep_dr1_EntityFramework.Services {
             }
         }
 
-        /// <summary>
-        /// Finds an entity by Id.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns>Found entity</returns>
         public async Task<T> Get(int id) {
             using (PenztargepDbContext context = _contextFactory.CreateDbContext()) {
                 T entity = await context.Set<T>().FirstOrDefaultAsync((entity) => entity.Id == id);
@@ -55,22 +40,13 @@ namespace Penztargep_dr1_EntityFramework.Services {
 
         }
 
-        /// <summary>
-        /// Gets all entity.
-        /// </summary>
-        /// <returns>List of entities</returns>
         public async Task<IEnumerable<T>> GetAll() {
             using (PenztargepDbContext context = _contextFactory.CreateDbContext()) {
                 IEnumerable<T> entities = await context.Set<T>().ToListAsync();
                 return entities;
             }
         }
-        /// <summary>
-        /// Updates an entity.
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="entity"></param>
-        /// <returns>Updated entity</returns>
+
         public async Task<T> Update(int id, T entity) {
             using (PenztargepDbContext context = _contextFactory.CreateDbContext()) {
                 entity.Id = id;
