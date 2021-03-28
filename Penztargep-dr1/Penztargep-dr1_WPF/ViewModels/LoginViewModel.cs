@@ -31,9 +31,11 @@ namespace Penztargep_dr1_WPF.ViewModels {
             _window = window;
             WindowService = new WindowService(window);
         }
+
         // TODO: Add auth
         public void Login() {
             // call backend auth here
+            
             Window mainWindow = new MainView();
             WindowService.ShowWindow(mainWindow, new MainViewModel(mainWindow));
             WindowService.CloseWindow();
