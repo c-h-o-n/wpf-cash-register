@@ -4,45 +4,138 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Penztargep_dr1_WPF.Views" 
-             xmlns:viewmodels="clr-namespace:Penztargep_dr1_WPF.ViewModels" d:DataContext="{d:DesignInstance Type=viewmodels:SaleViewModel}"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="1000" d:DesignWidth="1500">
     <Border Background="#EFEFEF" CornerRadius="10, 0, 0, 0">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-
-        <!--Cash machine-->    
-        <Grid Grid.Column="0">
+        <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="337"/>
             </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-                <ScrollViewer Grid.Row="0" Grid.ColumnSpan="2" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled">
-                    <StackPanel Orientation="Horizontal" >
-                        <Label Content="Categories" HorizontalContentAlignment="Center"/>
-                    </StackPanel>
+
+            <!-- Cash register -->
+            <Grid Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="4*"/>
+                </Grid.RowDefinitions>
+                
+                <!-- Categories -->
+                <ScrollViewer Grid.Row="0" Grid.ColumnSpan="2" Margin="100, 40, 100, 0" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled">
+                    <ItemsControl ItemsSource="{Binding Categories}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Button Content="{Binding Name}" Style="{StaticResource CategoryButtonStyle}"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
                 </ScrollViewer>
-            <Label Grid.Row="1" Grid.Column="0" Content="Products"/>
-            <Label Grid.Row="1" Grid.Column="1" Content="Input"/>
+                <!-- Products -->
+                <ScrollViewer Grid.Row="1" Grid.Column="0" Margin="100, 20, 0, 0" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Visible">
+                    <ItemsControl x:Name="itcasd" ItemsSource="{Binding Products}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Button Content="{Binding Name}" Style="{StaticResource ProductButtonStyle}"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel HorizontalAlignment="Left" Orientation="Horizontal"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ItemsControl>
+                </ScrollViewer>
+                <!-- Numpad -->
+                <Grid Grid.Row="1" Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="67"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    
+                    <Border Background="White">
+                        <StackPanel Orientation="Horizontal">
+                            <!-- Code input field -->
+                            <TextBlock Text="Code Input Field"/>
+                            <Button Content="*"/>
+                        </StackPanel>
+                    </Border>
+                    <!-- Keys -->
+                    <UniformGrid  Grid.Row="1" Rows="3" Columns="3">
+                        <Button Content="1"/>
+                        <Button Content="2"/>
+                        <Button Content="3"/>
+                        <Button Content="4"/>
+                        <Button Content="5"/>
+                        <Button Content="6"/>
+                        <Button Content="7"/>
+                        <Button Content="8"/>
+                        <Button Content="9"/>
+                    </UniformGrid>
+                </Grid>
+            </Grid>
+
+            <!-- Receipt  -->
+            <Grid Grid.Column="1" Margin="30, 30, 30, 15">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="141"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+
+
+                
+                <Border Grid.Row="0" Background="White" BorderThickness="1" CornerRadius="5">
+                    <Border.BorderBrush>
+                        <SolidColorBrush Color="Black" Opacity=".2"/>
+                    </Border.BorderBrush>
+                    <StackPanel>
+                        <Label/>
+                        <Label/>
+                    </StackPanel>
+                </Border>
+
+
+                <Border Grid.Row="1" x:Name="brdReceiptBody" Background="White" BorderThickness="1" CornerRadius="5" Margin="0, 30, 0, 40">
+                    <Border.BorderBrush>
+                        <SolidColorBrush Color="Black" Opacity=".2"/>
+                    </Border.BorderBrush>
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="50"/>
+                        </Grid.RowDefinitions>
+                        <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto" VerticalAlignment="Stretch">
+                            <ItemsControl ItemsSource="{Binding}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <StackPanel Orientation="Vertical"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                            </ItemsControl>
+                        </ScrollViewer>
+                        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Button Content="Print"/>
+                            <Button Content="Cancel"/>
+                        </StackPanel>
+                    </Grid>
+                </Border>
+             <!--Open/Close cash register-->
+            <Button Grid.Row="2" Height="50"/>
+            </Grid>
         </Grid>
-        
-        <!--Receipt-->
-        <Grid Grid.Column="1">
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            
-            <Label Grid.Row="0" Content="Receipt total"/>
-            <Label Grid.Row="1" Content="Receipt body"/>
-        </Grid>
-    </Grid>
     </Border>
 </UserControl>

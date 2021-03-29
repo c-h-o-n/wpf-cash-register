@@ -5,9 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Penztargep_dr1_WPF.Views"
         xmlns:controls="clr-namespace:Penztargep_dr1_WPF.Controls"
-
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="800"
+        MinHeight="820" MinWidth="1400"
         ResizeMode="CanResize"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"

@@ -6,6 +6,10 @@
     <RootNamespace>Penztargep_dr1_WPF</RootNamespace>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
+  
+  <PropertyGroup>
+    <GenerateRuntimeConfigurationFiles>True</GenerateRuntimeConfigurationFiles>
+  </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Assets\Fonts\IBMPlexSans-Bold.ttf" />
@@ -20,5 +24,11 @@
     <Resource Include="Assets\Fonts\IBMPlexSans-Bold.ttf" />
     <Resource Include="Assets\Images\logo.png" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Penztargep-dr1_Domain\Penztargep-dr1_Domain.csproj" />
+    <ProjectReference Include="..\Penztargep-dr1_EntityFramework\Penztargep-dr1_EntityFramework.csproj" />
+  </ItemGroup>
+  
 
 </Project>
