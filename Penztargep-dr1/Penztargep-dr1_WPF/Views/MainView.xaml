@@ -10,7 +10,7 @@
         MinHeight="820" MinWidth="1400"
         ResizeMode="CanResize"
         WindowStartupLocation="CenterScreen"
-        WindowStyle="None"
+        WindowStyle="SingleBorderWindow"
         WindowState="{Binding CurrentWindowState, Mode=TwoWay}">
     
     <!--Set window chrome height-->
@@ -33,7 +33,7 @@
         <!-- NavBar -->
         <controls:NavigationBar Grid.Row="1" Grid.Column="0" DataContext="{Binding Navigator}"/>
         <!-- Content -->
-        <ContentControl Grid.Row="1" Grid.Column="1" Content="{Binding Navigator.CurrentViewModel}" Margin="-10, 0, 0, 0"/>
+        <ContentControl Grid.Row="1" Grid.Column="1" Content="{Binding Navigator.CurrentViewModel}"/>
 
     </Grid>
 </Window>

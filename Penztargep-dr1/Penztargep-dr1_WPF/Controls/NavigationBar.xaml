@@ -8,23 +8,27 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
+        <Grid.Resources>
+            <Style TargetType="RadioButton" BasedOn="{StaticResource Navigtaion}"/>
+        </Grid.Resources>
+        
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="80"/>
-            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="50"/>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="100"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-
-            <RadioButton Grid.Row="1" Content="Sale"  Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewType.Sale}" IsChecked="True"/>
-            <RadioButton Grid.Row="2" Content="Products" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewType.Product}"/>
-            <RadioButton Grid.Row="3" Content="Categories" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewType.Category}"/>
+            
+            <RadioButton Grid.Row="1" Content="pack://application:,,,/Assets/Images/logo.png" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewType.Sale}" IsChecked="True"/>
+            <RadioButton Grid.Row="2" Content="pack://application:,,,/Assets/Images/products.png" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewType.Product}"/>
+            <RadioButton Grid.Row="3" Content="pack://application:,,,/Assets/Images/categories.png" Command="{Binding UpdateCurrentViewModelCommand}" CommandParameter="{x:Static nav:ViewType.Category}"/>
         </Grid>
     </Grid>
 </UserControl>

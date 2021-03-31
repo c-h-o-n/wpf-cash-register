@@ -12,6 +12,11 @@
     <SolidColorBrush x:Key="BrushPrimary" Color="{StaticResource ColorPrimary}"/>
     <SolidColorBrush x:Key="BrushPrimaryDarker25" Color="{StaticResource ColorPrimaryDarker25}"/>
 
+    <!-- Set bitmap scalling mode -->
+    <Style TargetType="Image">
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality"/>
+    </Style>
+    
     <!-- Rounded button -->
     <Style x:Key="RoundedButtonStyle" TargetType="Button">
         <Setter Property="Template">
@@ -84,18 +89,6 @@
         <Setter Property="Margin" Value="0, 0, 25, 0"/>
     </Style>
 
-     <!-- Change Window State Button's style: it hides when window is not resizable -->
-    <Style x:Key="ChangeWindowStateButtonStyle" TargetType="Button" BasedOn="{StaticResource RoundedButtonStyle}">
-        <Style.Triggers>
-            <DataTrigger Binding="{Binding ResizeMode, RelativeSource={RelativeSource AncestorType=Window}}" Value="NoResize">
-                <Setter Property="Visibility" Value="Collapsed"/>
-                <Setter Property="IsEnabled" Value="False"/>
-            </DataTrigger>
-            <DataTrigger Binding="{Binding ResizeMode, RelativeSource={RelativeSource AncestorType=Window}}" Value="CanResize">
-                <Setter Property="Visibility" Value="Visible"/>
-                <Setter Property="IsEnabled" Value="True"/>
-            </DataTrigger>
-        </Style.Triggers>
-    </Style>
+
 
 </ResourceDictionary>

@@ -12,7 +12,7 @@ namespace Penztargep_dr1_WPF.ViewModels {
     public class MainViewModel : ViewModelBase {
         private Window _window;
         public IWindowService WindowService { get; set; }
-        public INavigator Navigator { get; set; } = new Navigator();
+        public INavigator Navigator { get; set; }
 
         // Might need later
         private WindowState _currentWindowState;
@@ -26,9 +26,10 @@ namespace Penztargep_dr1_WPF.ViewModels {
             }
         }
 
-        public MainViewModel(Window window) {
-            _window = window;
-            WindowService = new WindowService(window);
+
+        public MainViewModel() {
+
+            Navigator = new Navigator();
 
             Navigator.UpdateCurrentViewModelCommand.Execute(ViewType.Sale);
         }
