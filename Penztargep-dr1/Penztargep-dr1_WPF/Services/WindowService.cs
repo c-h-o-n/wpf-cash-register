@@ -12,6 +12,7 @@ namespace Penztargep_dr1_WPF.Services {
 
         public WindowService(Window window) {
             _window = window;
+
         }
 
         public void ShowWindow(Window targetView, object viewModel) {

@@ -12,14 +12,11 @@ using System.Windows.Shapes;
 
 namespace Penztargep_dr1_WPF.Views {
     /// <summary>
-    /// Interaction logic for LoginView.xaml
+    /// Interaction logic for RegistrationView.xaml
     /// </summary>
-    public partial class LoginView : Window {
-        public LoginView(object dataContext) {
+    public partial class RegistrationView : Window {
+        public RegistrationView() {
             InitializeComponent();
-
-            DataContext = dataContext;
-
         }
     }
 }

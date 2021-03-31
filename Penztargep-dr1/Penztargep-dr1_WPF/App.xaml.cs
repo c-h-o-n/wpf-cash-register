@@ -12,6 +12,9 @@ using Penztargep_dr1_Domain.Services;
 using Penztargep_dr1_Domain.Services.AuthenticationServices;
 using Penztargep_dr1_EntityFramework;
 using Penztargep_dr1_EntityFramework.Services;
+using Penztargep_dr1_WPF.Services;
+using Penztargep_dr1_WPF.State.Authenticators;
+using Penztargep_dr1_WPF.State.Navigators;
 using Penztargep_dr1_WPF.ViewModels;
 using Penztargep_dr1_WPF.Views;
 
@@ -23,18 +26,11 @@ namespace Penztargep_dr1_WPF {
 
         protected override void OnStartup(StartupEventArgs e) {
             IServiceProvider serviceProvider = CreateServiceProvider();
-            IAuthenticationService authentication = serviceProvider.GetRequiredService<IAuthenticationService>();
-            authentication.Register("test", "test", "test", "testFirstName", "testLastName", "testTitle");
-            authentication.Login("test", "test");
 
             IDataService<Product> ProductService = serviceProvider.GetRequiredService<IDataService<Product>>();
             var asd = ProductService.GetAll();
-
-             Window window = new LoginView();
-            window.DataContext = new LoginViewModel(window);
             window.Show();
 
-            //IAuthenticationService authentication = new AuthenticationService();
 
             base.OnStartup(e);
         }
@@ -47,6 +43,14 @@ namespace Penztargep_dr1_WPF {
             services.AddSingleton<IUserService, UserService>();
             services.AddSingleton<PenztargepDbContextFactory>();
 
+            services.AddScoped<LoginViewModel>();
+            services.AddScoped<IAuthenticator, Authenticator>();
+            services.AddScoped<MainViewModel>();
+            services.AddScoped<INavigator, Navigator>();
+            services.AddScoped<Window>();
+            services.AddScoped<IWindowService, WindowService>();
+
+            services.AddScoped<LoginView>(s => new LoginView(s.GetRequiredService<LoginViewModel>()));
             return services.BuildServiceProvider();
         }
     }

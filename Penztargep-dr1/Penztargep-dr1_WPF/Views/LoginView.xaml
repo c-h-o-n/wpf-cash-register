@@ -43,20 +43,30 @@
             <controls:WindowChrome Grid.Row="0" HorizontalAlignment="Stretch" DataContext="{Binding WindowService}"/>
 
             <!-- Logo -->
-            <Image Grid.Row="1" Source="pack://application:,,,/Assets/Images/logo.png" Width="100" Height="100" Opacity=".5"/>
+            <Image Grid.Row="1" Source="pack://application:,,,/Assets/Images/logo.png" Width="100" Height="100" Opacity=".5">
+                <Image.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Új pénztáros..." Command="{Binding RegistrationCommand}">
+                            <MenuItem.Icon>
+                                <Image Source="pack://application:,,,/Assets/Images/add.png"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </ContextMenu>
+                </Image.ContextMenu>
+            </Image>
             <!-- Input fields -->
             <Border Grid.Row="2" BorderThickness="2" CornerRadius="5"  Height="45" Width="258" VerticalAlignment="Center">
                 <Border.BorderBrush>
                     <SolidColorBrush Color="Black" Opacity=".2"/>
                 </Border.BorderBrush>
-                <TextBox x:Name="txtUsername" Text="Felhasználónév" Style="{DynamicResource IBMPlexSans-Bold}" FontSize="20" BorderThickness="0" Background="Transparent" Foreground="Black" Opacity=".25" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding Username, Mode=TwoWay}"  Style="{DynamicResource IBMPlexSans-Bold}" FontSize="20" BorderThickness="0" Background="Transparent" Foreground="Black" Opacity=".25" VerticalAlignment="Center"/>
             </Border>
             <!-- Password input -->
             <Border Grid.Row="3" BorderThickness="2" CornerRadius="5"  Height="45" Width="258" VerticalAlignment="Center">
                 <Border.BorderBrush>
                     <SolidColorBrush Color="Black" Opacity=".2"/>
                 </Border.BorderBrush>
-                <PasswordBox x:Name="txtPassword" Password="Jelszó"  Style="{DynamicResource IBMPlexSans-Bold}" FontSize="20" BorderThickness="0" Background="Transparent" Foreground="Black" Opacity=".25" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding Password, Mode=TwoWay}"  Style="{DynamicResource IBMPlexSans-Bold}" FontSize="20" BorderThickness="0" Background="Transparent" Foreground="Black" Opacity=".25" VerticalAlignment="Center"/>
             </Border>
             <!-- Login button -->
             <Button x:Name="btnLogin" Grid.Row="4" Command="{Binding LoginCommand}" Height="37" Width="150"  Content="Belépés" Style="{DynamicResource RoundedButtonStyle}" FontSize="20" IsDefault="True" Foreground="Black" Opacity=".25" />
