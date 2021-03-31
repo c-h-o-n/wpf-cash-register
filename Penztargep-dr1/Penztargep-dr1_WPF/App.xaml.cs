@@ -27,7 +27,10 @@ namespace Penztargep_dr1_WPF {
             authentication.Register("test", "test", "test", "testFirstName", "testLastName", "testTitle");
             authentication.Login("test", "test");
 
-            Window window = new LoginView();
+            IDataService<Product> ProductService = serviceProvider.GetRequiredService<IDataService<Product>>();
+            var asd = ProductService.GetAll();
+
+             Window window = new LoginView();
             window.DataContext = new LoginViewModel(window);
             window.Show();
 
@@ -39,7 +42,7 @@ namespace Penztargep_dr1_WPF {
             IServiceCollection services = new ServiceCollection();
 
             services.AddSingleton<IPasswordHasher, PasswordHasher>();
-
+            services.AddSingleton<IDataService<Product>, ProductService>();
             services.AddSingleton<IAuthenticationService, AuthenticationService>();
             services.AddSingleton<IUserService, UserService>();
             services.AddSingleton<PenztargepDbContextFactory>();
