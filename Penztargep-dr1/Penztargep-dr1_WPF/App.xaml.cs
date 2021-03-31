@@ -27,8 +27,8 @@ namespace Penztargep_dr1_WPF {
         protected override void OnStartup(StartupEventArgs e) {
             IServiceProvider serviceProvider = CreateServiceProvider();
 
-            IDataService<Product> ProductService = serviceProvider.GetRequiredService<IDataService<Product>>();
-            var asd = ProductService.GetAll();
+
+            Window window = serviceProvider.GetRequiredService<LoginView>();
             window.Show();
 
 
@@ -38,7 +38,7 @@ namespace Penztargep_dr1_WPF {
             IServiceCollection services = new ServiceCollection();
 
             services.AddSingleton<IPasswordHasher, PasswordHasher>();
-            services.AddSingleton<IDataService<Product>, ProductService>();
+
             services.AddSingleton<IAuthenticationService, AuthenticationService>();
             services.AddSingleton<IUserService, UserService>();
             services.AddSingleton<PenztargepDbContextFactory>();

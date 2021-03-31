@@ -40,7 +40,7 @@ namespace Penztargep_dr1_EntityFramework.Services {
 
         }
 
-        public virtual async Task<IEnumerable<T>> GetAll() {
+        public async Task<IEnumerable<T>> GetAll() {
             using (PenztargepDbContext context = _contextFactory.CreateDbContext()) {
                 IEnumerable<T> entities = await context.Set<T>().ToListAsync();
                 return entities;
