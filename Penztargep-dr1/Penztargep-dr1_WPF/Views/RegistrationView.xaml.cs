@@ -15,8 +15,10 @@ namespace Penztargep_dr1_WPF.Views {
     /// Interaction logic for RegistrationView.xaml
     /// </summary>
     public partial class RegistrationView : Window {
-        public RegistrationView() {
+        public RegistrationView(object dataContext) {
             InitializeComponent();
+
+            DataContext = dataContext;
         }
     }
 }

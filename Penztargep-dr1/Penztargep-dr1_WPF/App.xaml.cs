@@ -12,10 +12,10 @@ using Penztargep_dr1_Domain.Services;
 using Penztargep_dr1_Domain.Services.AuthenticationServices;
 using Penztargep_dr1_EntityFramework;
 using Penztargep_dr1_EntityFramework.Services;
-using Penztargep_dr1_WPF.Services;
 using Penztargep_dr1_WPF.State.Authenticators;
 using Penztargep_dr1_WPF.State.Navigators;
 using Penztargep_dr1_WPF.ViewModels;
+using Penztargep_dr1_WPF.ViewModels.Factories;
 using Penztargep_dr1_WPF.Views;
 
 namespace Penztargep_dr1_WPF {
@@ -27,7 +27,6 @@ namespace Penztargep_dr1_WPF {
         protected override void OnStartup(StartupEventArgs e) {
             IServiceProvider serviceProvider = CreateServiceProvider();
 
-
             Window window = serviceProvider.GetRequiredService<LoginView>();
             window.Show();
 
@@ -37,20 +36,31 @@ namespace Penztargep_dr1_WPF {
         private IServiceProvider CreateServiceProvider() {
             IServiceCollection services = new ServiceCollection();
 
+            // Database
+            services.AddSingleton<PenztargepDbContextFactory>();
+            services.AddSingleton<IUserService, UserService>();
+            services.AddSingleton<IAuthenticationService, AuthenticationService>();
+            services.AddScoped<IAuthenticator, Authenticator>();
+
             services.AddSingleton<IPasswordHasher, PasswordHasher>();
 
-            services.AddSingleton<IAuthenticationService, AuthenticationService>();
-            services.AddSingleton<IUserService, UserService>();
-            services.AddSingleton<PenztargepDbContextFactory>();
+            // Viewmodels
+            services.AddSingleton<IPenztargepViewModelAbstractFactory, PenztargepViewModelAbstractFactory>();
+            services.AddSingleton<INavigationPenztargepViewModelFactory<LoginViewModel>, LoginViewModelFactory>();
+            services.AddSingleton<INavigationPenztargepViewModelFactory<MainViewModel>, MainViewModelFactory>();
+            services.AddSingleton<IPenztargepViewModelFactory<SaleViewModel>, SaleViewModelFactory>();
 
-            services.AddScoped<LoginViewModel>();
-            services.AddScoped<IAuthenticator, Authenticator>();
-            services.AddScoped<MainViewModel>();
+            services.AddScoped<IWindowManager, WindowManager>();
             services.AddScoped<INavigator, Navigator>();
-            services.AddScoped<Window>();
-            services.AddScoped<IWindowService, WindowService>();
+            services.AddScoped<LoginViewModel>();
+            services.AddScoped<MainViewModel>();
+            services.AddScoped<SaleViewModel>();
+            services.AddScoped<RegistrationViewModel>();
 
             services.AddScoped<LoginView>(s => new LoginView(s.GetRequiredService<LoginViewModel>()));
+            services.AddScoped<MainView>(s => new MainView(s.GetRequiredService<MainViewModel>()));
+            services.AddScoped<RegistrationView>(s => new RegistrationView(s.GetRequiredService<RegistrationViewModel>()));
+
             return services.BuildServiceProvider();
         }
     }

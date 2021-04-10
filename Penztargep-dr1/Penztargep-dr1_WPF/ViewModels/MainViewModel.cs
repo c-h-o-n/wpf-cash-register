@@ -1,5 +1,4 @@
 ﻿using Penztargep_dr1_WPF.Commands;
-using Penztargep_dr1_WPF.Services;
 using Penztargep_dr1_WPF.State.Navigators;
 using System;
 using System.Collections.Generic;
@@ -11,8 +10,8 @@ using System.Windows.Input;
 namespace Penztargep_dr1_WPF.ViewModels {
     public class MainViewModel : ViewModelBase {
         private Window _window;
-        public IWindowService WindowService { get; set; }
         public INavigator Navigator { get; set; }
+        public IWindowManager WindowManager { get; set; }
 
         // Might need later
         private WindowState _currentWindowState;
@@ -27,9 +26,9 @@ namespace Penztargep_dr1_WPF.ViewModels {
         }
 
 
-        public MainViewModel() {
-
-            Navigator = new Navigator();
+        public MainViewModel(INavigator navigator, IWindowManager windowManager) {
+            Navigator = navigator;
+            WindowManager = windowManager;
 
             Navigator.UpdateCurrentViewModelCommand.Execute(ViewType.Sale);
         }

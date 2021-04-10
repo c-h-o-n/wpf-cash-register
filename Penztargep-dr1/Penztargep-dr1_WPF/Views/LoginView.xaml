@@ -40,7 +40,7 @@
 
 
             <!-- WindowChrome -->
-            <controls:WindowChrome Grid.Row="0" HorizontalAlignment="Stretch" DataContext="{Binding WindowService}"/>
+            <controls:WindowChrome Grid.Row="0" HorizontalAlignment="Stretch"/>
 
             <!-- Logo -->
             <Image Grid.Row="1" Source="pack://application:,,,/Assets/Images/logo.png" Width="100" Height="100" Opacity=".5">
@@ -69,7 +69,7 @@
                 <TextBox Text="{Binding Password, Mode=TwoWay}"  Style="{DynamicResource IBMPlexSans-Bold}" FontSize="20" BorderThickness="0" Background="Transparent" Foreground="Black" Opacity=".25" VerticalAlignment="Center"/>
             </Border>
             <!-- Login button -->
-            <Button x:Name="btnLogin" Grid.Row="4" Command="{Binding LoginCommand}" Height="37" Width="150"  Content="Belépés" Style="{DynamicResource RoundedButtonStyle}" FontSize="20" IsDefault="True" Foreground="Black" Opacity=".25" />
+            <Button x:Name="btnLogin" Grid.Row="4" Command="{Binding LoginCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}" Height="37" Width="150"  Content="Belépés" Style="{DynamicResource RoundedButtonStyle}" FontSize="20" IsDefault="True" Foreground="Black" Opacity=".25" />
         </Grid>
     </Border>
 

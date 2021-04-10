@@ -41,11 +41,11 @@
         </Grid.Resources>
 
         <!-- WindowChrome -->
-        <controls:WindowChrome Grid.Row="0" HorizontalAlignment="Stretch" DataContext="{Binding WindowService}"/>
+        <controls:WindowChrome Grid.Row="0" HorizontalAlignment="Stretch"/>
 
 
         <StackPanel Grid.Row="1" Margin="10">
-            <Label  Content="Felhasznalónév:"/>
+            <Label  Content="Felhasználónév:"/>
             <TextBox HorizontalAlignment="Stretch"/>
 
             <Label Content="Jelszó:"/>

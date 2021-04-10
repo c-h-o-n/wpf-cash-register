@@ -1,7 +1,6 @@
 ﻿using Penztargep_dr1_Domain.Services.AuthenticationServices;
 using Penztargep_dr1_EntityFramework.Services;
 using Penztargep_dr1_WPF.Commands;
-using Penztargep_dr1_WPF.Services;
 using Penztargep_dr1_WPF.State.Authenticators;
 using Penztargep_dr1_WPF.State.Navigators;
 using Penztargep_dr1_WPF.Views;
@@ -15,8 +14,8 @@ using System.Windows.Input;
 
 namespace Penztargep_dr1_WPF.ViewModels {
     public class LoginViewModel : ViewModelBase {
-        public IWindowService WindowService { get; set; }
-
+        public INavigator Navigator { get; set; }
+        public IWindowManager WindowManager { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
 
@@ -27,7 +26,11 @@ namespace Penztargep_dr1_WPF.ViewModels {
             get {
                 if (_loginCommand == null) {
                     _loginCommand = new RelayCommand(
-                        parameter => this.Login(),
+                        parameter => {
+                            this.Login();
+                            WindowManager.Show<MainView>();
+                            WindowManager.Close(parameter);
+                        },
                         parameter => true);
                 }
                 return _loginCommand;
@@ -39,44 +42,28 @@ namespace Penztargep_dr1_WPF.ViewModels {
             get {
                 if (_RegistrationCommand == null) {
                     _RegistrationCommand = new RelayCommand(
-                        parameter => this.OpenRegistrationWindow(),
-                        parameter => true); // TODO: check if reg window is already open
+                        parameter => WindowManager.Show<RegistrationView>(),
+                        parameter => true);; // TODO: check if reg window is already open
                 }
                 return _RegistrationCommand;
             }
         }
 
-        private Window _window;
-
-        public LoginViewModel(IAuthenticator authenticator) {
+        public LoginViewModel(IAuthenticator authenticator, INavigator navigator, IWindowManager windowManager) {
             Authenticator = authenticator;
+            Navigator = navigator;
+            WindowManager = windowManager;
         }
-
-        //public LoginViewModel(Window window, IAuthenticator authenticator) {
-        //    _window = window;
-        //    WindowService = new WindowService(window);
-
-        //}
 
         public async void Login() {
             try {
                 await Authenticator.Login(Username, Password);
-                Window window = new MainView();
-                window.DataContext = new MainViewModel();
-                window.Show();
             } catch (Exception) {
                 throw new Exception("Login failed.");
             }
-
-
-            //Window mainWindow = new MainView();
-            //WindowService.ShowWindow(mainWindow, new MainViewModel(mainWindow));
-            //WindowService.CloseWindow();
         }
 
         public void OpenRegistrationWindow() {
-            Window registrationWindow = new RegistrationView();
-            WindowService.ShowWindow(registrationWindow, new RegistrationViewModel(registrationWindow));
         }
     }
 }

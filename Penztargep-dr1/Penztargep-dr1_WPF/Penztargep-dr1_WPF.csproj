@@ -14,7 +14,9 @@
   <ItemGroup>
     <None Remove="Assets\Fonts\IBMPlexSans-Bold.ttf" />
     <None Remove="Assets\Images\add.png" />
+    <None Remove="Assets\Images\categories.png" />
     <None Remove="Assets\Images\logo.png" />
+    <None Remove="Assets\Images\products.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,8 +25,10 @@
 
   <ItemGroup>
     <Resource Include="Assets\Fonts\IBMPlexSans-Bold.ttf" />
+    <Resource Include="Assets\Images\categories.png" />
     <Resource Include="Assets\Images\logo.png" />
     <Resource Include="Assets\Images\add.png" />
+    <Resource Include="Assets\Images\products.png" />
   </ItemGroup>
 
   <ItemGroup>
