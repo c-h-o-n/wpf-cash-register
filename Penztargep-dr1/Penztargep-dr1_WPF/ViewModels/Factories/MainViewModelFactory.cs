@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Penztargep_dr1_WPF.ViewModels.Factories {
     public class MainViewModelFactory : INavigationPenztargepViewModelFactory<MainViewModel> {
-        private IWindowManager _windowManager;
+        private readonly IWindowManager _windowManager;
         public MainViewModelFactory(IWindowManager windowManager) {
             _windowManager = windowManager;
         }

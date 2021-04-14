@@ -7,11 +7,11 @@
         xmlns:controls="clr-namespace:Penztargep_dr1_WPF.Controls"
         mc:Ignorable="d"
         Title="MainWindow" Height="600" Width="800"
-        MinHeight="820" MinWidth="1400"
+        MinHeight="820" MinWidth="1300"
         ResizeMode="CanResize"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
-        WindowState="{Binding CurrentWindowState, Mode=TwoWay}">
+        WindowState="Maximized">
     
     <!--Set window chrome height-->
     <WindowChrome.WindowChrome>

@@ -12,6 +12,7 @@ using Penztargep_dr1_Domain.Services;
 using Penztargep_dr1_Domain.Services.AuthenticationServices;
 using Penztargep_dr1_EntityFramework;
 using Penztargep_dr1_EntityFramework.Services;
+using Penztargep_dr1_WPF.Services;
 using Penztargep_dr1_WPF.State.Authenticators;
 using Penztargep_dr1_WPF.State.Navigators;
 using Penztargep_dr1_WPF.ViewModels;
@@ -26,7 +27,8 @@ namespace Penztargep_dr1_WPF {
 
         protected override void OnStartup(StartupEventArgs e) {
             IServiceProvider serviceProvider = CreateServiceProvider();
-
+            IAuthenticationService authentication = serviceProvider.GetRequiredService<IAuthenticationService>();
+            authentication.Register("asd", "asd", "asd", "John", "Doe", "TitleTest");
             Window window = serviceProvider.GetRequiredService<LoginView>();
             window.Show();
 
@@ -38,11 +40,24 @@ namespace Penztargep_dr1_WPF {
 
             // Database
             services.AddSingleton<PenztargepDbContextFactory>();
+            // Login services
             services.AddSingleton<IUserService, UserService>();
             services.AddSingleton<IAuthenticationService, AuthenticationService>();
             services.AddScoped<IAuthenticator, Authenticator>();
-
             services.AddSingleton<IPasswordHasher, PasswordHasher>();
+
+
+            // Sale services
+            services.AddSingleton<IProductService, ProductService>();
+            services.AddSingleton<IDataService<Category>, GenericDataService<Category>>();
+            services.AddSingleton<IDataService<Receipt>, GenericDataService<Receipt>>();
+            services.AddSingleton<IDataService<ReceiptItem>, GenericDataService<ReceiptItem>>();
+            services.AddSingleton<ISaleInputService, SaleInputService>();
+            services.AddSingleton<IReceiptService, ReceiptService>();
+            services.AddSingleton<IDataService<Employee>, GenericDataService<Employee>>();
+            services.AddSingleton<IDataService<Product>, GenericDataService<Product>>();
+            services.AddSingleton<ISellingService, SellingService>();
+
 
             // Viewmodels
             services.AddSingleton<IPenztargepViewModelAbstractFactory, PenztargepViewModelAbstractFactory>();
@@ -57,10 +72,11 @@ namespace Penztargep_dr1_WPF {
             services.AddScoped<SaleViewModel>();
             services.AddScoped<RegistrationViewModel>();
 
+
             services.AddScoped<LoginView>(s => new LoginView(s.GetRequiredService<LoginViewModel>()));
             services.AddScoped<MainView>(s => new MainView(s.GetRequiredService<MainViewModel>()));
             services.AddScoped<RegistrationView>(s => new RegistrationView(s.GetRequiredService<RegistrationViewModel>()));
-
+            services.AddScoped<SaleViewModel>(services => services.GetRequiredService<SaleViewModel>());
             return services.BuildServiceProvider();
         }
     }

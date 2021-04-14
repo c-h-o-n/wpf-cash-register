@@ -46,48 +46,7 @@
         </Setter>
     </Style>
     
-    <!-- Product button -->
-    <Style x:Key="ProductButtonStyle" TargetType="Button">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="Button">
-                    <Border x:Name="border" BorderThickness="1" CornerRadius="15">
-                        <Border.BorderBrush>
-                            <SolidColorBrush Color="{StaticResource ProductButtonBorder}" Opacity=".5"/>
-                        </Border.BorderBrush>
-                        <Border.Background>
-                            <SolidColorBrush Color="{StaticResource ProductButtonBackground}"/>
-                        </Border.Background>
-                        <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-        <Setter Property="Width" Value="100"/>
-        <Setter Property="Height" Value="100"/>
-        <Setter Property="Margin" Value="0, 0, 25, 25"/>
-    </Style>
     
-    <!-- Category button -->
-    <Style x:Key="CategoryButtonStyle" TargetType="Button">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="Button">
-                    <Border x:Name="border" CornerRadius="15">
-                        <Border.Background>
-                            <SolidColorBrush Color="{StaticResource ColorSecondary}"/>
-                        </Border.Background>
-                        <Border BorderBrush="#EFEFEF" BorderThickness="4" CornerRadius="12" Width="90" Height="90">
-                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-                        </Border>
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-        <Setter Property="Width" Value="100"/>
-        <Setter Property="Height" Value="100"/>
-        <Setter Property="Margin" Value="0, 0, 25, 0"/>
-    </Style>
 
 
 

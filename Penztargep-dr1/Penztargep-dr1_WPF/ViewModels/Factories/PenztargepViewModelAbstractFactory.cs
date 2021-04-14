@@ -7,10 +7,12 @@ namespace Penztargep_dr1_WPF.ViewModels.Factories {
     public class PenztargepViewModelAbstractFactory : IPenztargepViewModelAbstractFactory {
         private readonly INavigationPenztargepViewModelFactory<LoginViewModel> _loginViewModelFactory;
         private readonly INavigationPenztargepViewModelFactory<MainViewModel> _mainViewModelFactory;
+        private readonly IPenztargepViewModelFactory<SaleViewModel> _saleViewModelFactory;
 
-        public PenztargepViewModelAbstractFactory(INavigationPenztargepViewModelFactory<LoginViewModel> loginViewModelFactory, INavigationPenztargepViewModelFactory<MainViewModel> mainViewModelFactory) {
+        public PenztargepViewModelAbstractFactory(INavigationPenztargepViewModelFactory<LoginViewModel> loginViewModelFactory, INavigationPenztargepViewModelFactory<MainViewModel> mainViewModelFactory, IPenztargepViewModelFactory<SaleViewModel> saleViewModelFactory) {
             _loginViewModelFactory = loginViewModelFactory;
             _mainViewModelFactory = mainViewModelFactory;
+            _saleViewModelFactory = saleViewModelFactory;
         }
 
         public ViewModelBase CreateViewModel(ViewType viewType, INavigator navigator) {
@@ -18,7 +20,7 @@ namespace Penztargep_dr1_WPF.ViewModels.Factories {
                 case ViewType.Main:
                     return _mainViewModelFactory.CreateViewModel(navigator);
                 case ViewType.Sale:
-                    return new SaleViewModel();
+                    return _saleViewModelFactory.CreateViewModel();
                 case ViewType.Product:
                     return new ProductViewModel();
                 case ViewType.Category:

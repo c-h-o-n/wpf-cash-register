@@ -10,15 +10,16 @@
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="337"/>
+                <ColumnDefinition Width="350"/>
             </Grid.ColumnDefinitions>
 
             <!-- Cash register -->
             <Grid Grid.Column="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="3*"/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
+                
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition Height="4*"/>
@@ -29,7 +30,7 @@
                     <ItemsControl ItemsSource="{Binding Categories}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Button Content="{Binding Name}" Style="{StaticResource CategoryButtonStyle}"/>
+                                <Button Content="{Binding Name}" Style="{StaticResource CategoryButtonStyle}" Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataContext.UpdateCurrentCategoryCommand}" CommandParameter="{Binding Id}"/>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                         <ItemsControl.ItemsPanel>
@@ -40,8 +41,8 @@
                     </ItemsControl>
                 </ScrollViewer>
                 <!-- Products -->
-                <ScrollViewer Grid.Row="1" Grid.Column="0" Margin="100, 20, 0, 0" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Visible">
-                    <ItemsControl x:Name="itcasd" ItemsSource="{Binding Products}">
+                <ScrollViewer Grid.Row="1" Grid.Column="0" Margin="100, 20, 30, 0" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Visible">
+                    <ItemsControl ItemsSource="{Binding Products}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Button Content="{Binding Name}" Style="{StaticResource ProductButtonStyle}"/>
@@ -54,37 +55,52 @@
                         </ItemsControl.ItemsPanel>
                     </ItemsControl>
                 </ScrollViewer>
+                
                 <!-- Numpad -->
-                <Grid Grid.Row="1" Grid.Column="1">
+                <Grid DataContext="{Binding SaleInputService}" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="67"/>
+                        <RowDefinition Height="67"/>    
                         <RowDefinition Height="*"/>
+                        <RowDefinition Height="75"/>
                     </Grid.RowDefinitions>
-                    
-                    <Border Background="White">
-                        <StackPanel Orientation="Horizontal">
-                            <!-- Code input field -->
-                            <TextBlock Text="Code Input Field"/>
-                            <Button Content="*"/>
-                        </StackPanel>
-                    </Border>
+
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="67"/>
+                        </Grid.ColumnDefinitions>
+
+                        <!-- Code input field -->
+                        <TextBox Text="{Binding CurrentInput}"/>
+                        <Button Grid.Column="1" Content="*" Style="{StaticResource MultiplyButtonStyle}"/>
+                    </Grid>
                     <!-- Keys -->
-                    <UniformGrid  Grid.Row="1" Rows="3" Columns="3">
-                        <Button Content="1"/>
-                        <Button Content="2"/>
-                        <Button Content="3"/>
-                        <Button Content="4"/>
-                        <Button Content="5"/>
-                        <Button Content="6"/>
-                        <Button Content="7"/>
-                        <Button Content="8"/>
-                        <Button Content="9"/>
-                    </UniformGrid>
+                    <Viewbox  Grid.Row="1" Stretch="Uniform">
+                        <UniformGrid  Width="255" Height="345" Rows="4" Columns="3">
+                            <UniformGrid.Resources>
+                                <Style TargetType="Button" BasedOn="{StaticResource NumpadButtonsStyle}"/>
+                            </UniformGrid.Resources>
+                            <Button Content="1"/>
+                            <Button Content="2"/>
+                            <Button Content="3"/>
+                            <Button Content="4"/>
+                            <Button Content="5"/>
+                            <Button Content="6"/>
+                            <Button Content="7"/>
+                            <Button Content="8"/>
+                            <Button Content="9"/>
+                            <Button Content="d"/>
+                            <Button Content="0"/>
+                            <Button Content="c"/>
+                        </UniformGrid>
+                    </Viewbox>
+                    <!-- Enter -->
+                    <Button Grid.Row="2" Content="ENTER"  Style="{StaticResource EnterButtonStyle}"/>
                 </Grid>
             </Grid>
 
             <!-- Receipt  -->
-            <Grid Grid.Column="1" Margin="30, 30, 30, 15">
+            <Grid DataContext="{Binding ReceiptService}" Grid.Column="1" Margin="30, 30, 30, 15">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="141"/>
                     <RowDefinition Height="*"/>
@@ -93,13 +109,13 @@
 
 
                 
-                <Border Grid.Row="0" Background="White" BorderThickness="1" CornerRadius="5">
+                <Border  Grid.Row="0" Background="White" BorderThickness="1" CornerRadius="5">
                     <Border.BorderBrush>
                         <SolidColorBrush Color="Black" Opacity=".2"/>
                     </Border.BorderBrush>
                     <StackPanel>
-                        <Label/>
-                        <Label/>
+                        <Label Content="{Binding Total}"/>
+                        <Label Content="{Binding NumberOfItems}"/>
                     </StackPanel>
                 </Border>
 
@@ -112,12 +128,25 @@
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"/>
-                            <RowDefinition Height="50"/>
+                            <RowDefinition Height="100"/>
                         </Grid.RowDefinitions>
                         <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto" VerticalAlignment="Stretch">
-                            <ItemsControl ItemsSource="{Binding}">
+                            <ItemsControl ItemsSource="{Binding Items}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
+                                        <DockPanel LastChildFill="False" HorizontalAlignment="Stretch">
+                                            <DockPanel.Resources>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="Background" Value="White"/>
+                                                </Style>
+                                            </DockPanel.Resources>
+                                            <TextBlock DockPanel.Dock="Left" Text="{Binding Product.Name}"/>
+                                            <TextBlock Padding="10,10"  Text="{Binding Quantity}"/>
+                                            <TextBlock  Padding="0,10" Text="*"/>
+                                            <TextBlock Padding="10,10" Text="{Binding Product.Price}"/>
+                                            <TextBlock VerticalAlignment="Center" DockPanel.Dock="Right" Text="{Binding Total}"/>
+
+                                        </DockPanel>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                                 <ItemsControl.ItemsPanel>
@@ -127,14 +156,15 @@
                                 </ItemsControl.ItemsPanel>
                             </ItemsControl>
                         </ScrollViewer>
-                        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Button Content="Print"/>
-                            <Button Content="Cancel"/>
-                        </StackPanel>
+
+                        <DockPanel VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Margin="15, 0, 15, 10" Grid.Row="1">
+                            <Button  Content="pack://application:,,,/Assets/Images/print-receipt.png" Style="{StaticResource PrintButtonStyle}" Command="{Binding CreateReceiptCommand}"/>
+                            <Button  Content="pack://application:,,,/Assets/Images/remove.png" Style="{StaticResource RemoveButtonStyle}" Command="{Binding CancelReceiptCommand}"/>
+                        </DockPanel>
                     </Grid>
                 </Border>
              <!--Open/Close cash register-->
-            <Button Grid.Row="2" Height="50"/>
+            <Button Grid.Row="2" Content="PÉNZTÁR ZÁRÁSA" Style="{StaticResource CashRegisterControlButtonStyle}"/>
             </Grid>
         </Grid>
     </Border>

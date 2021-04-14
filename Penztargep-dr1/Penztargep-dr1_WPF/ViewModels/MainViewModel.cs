@@ -9,7 +9,6 @@ using System.Windows.Input;
 
 namespace Penztargep_dr1_WPF.ViewModels {
     public class MainViewModel : ViewModelBase {
-        private Window _window;
         public INavigator Navigator { get; set; }
         public IWindowManager WindowManager { get; set; }
 

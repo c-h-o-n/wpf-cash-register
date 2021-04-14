@@ -23,6 +23,7 @@ namespace Penztargep_dr1_EntityFramework.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -37,12 +38,15 @@ namespace Penztargep_dr1_EntityFramework.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -63,7 +67,11 @@ namespace Penztargep_dr1_EntityFramework.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("TEXT");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
 
@@ -81,7 +89,7 @@ namespace Penztargep_dr1_EntityFramework.Migrations
                     b.Property<string>("Date")
                         .HasColumnType("TEXT");
 
-                    b.Property<int?>("EmployeeId")
+                    b.Property<int>("EmployeeId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("Total")
@@ -100,13 +108,16 @@ namespace Penztargep_dr1_EntityFramework.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("ProductId")
+                    b.Property<int>("ProductId")
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("ReceiptId")
+                    b.Property<int>("ReceiptId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Total")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
@@ -124,13 +135,15 @@ namespace Penztargep_dr1_EntityFramework.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("EmployeeId")
+                    b.Property<int>("EmployeeId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("PasswordHash")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Username")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -152,8 +165,10 @@ namespace Penztargep_dr1_EntityFramework.Migrations
             modelBuilder.Entity("Penztargep_dr1_Domain.Models.Receipt", b =>
                 {
                     b.HasOne("Penztargep_dr1_Domain.Models.Employee", "Employee")
-                        .WithMany()
-                        .HasForeignKey("EmployeeId");
+                        .WithMany("Receipts")
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Employee");
                 });
@@ -161,12 +176,16 @@ namespace Penztargep_dr1_EntityFramework.Migrations
             modelBuilder.Entity("Penztargep_dr1_Domain.Models.ReceiptItem", b =>
                 {
                     b.HasOne("Penztargep_dr1_Domain.Models.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId");
+                        .WithMany("ReceiptItems")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Penztargep_dr1_Domain.Models.Receipt", "Receipt")
-                        .WithMany()
-                        .HasForeignKey("ReceiptId");
+                        .WithMany("ReceiptItems")
+                        .HasForeignKey("ReceiptId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Product");
 
@@ -177,9 +196,26 @@ namespace Penztargep_dr1_EntityFramework.Migrations
                 {
                     b.HasOne("Penztargep_dr1_Domain.Models.Employee", "Employee")
                         .WithMany()
-                        .HasForeignKey("EmployeeId");
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Employee");
+                });
+
+            modelBuilder.Entity("Penztargep_dr1_Domain.Models.Employee", b =>
+                {
+                    b.Navigation("Receipts");
+                });
+
+            modelBuilder.Entity("Penztargep_dr1_Domain.Models.Product", b =>
+                {
+                    b.Navigation("ReceiptItems");
+                });
+
+            modelBuilder.Entity("Penztargep_dr1_Domain.Models.Receipt", b =>
+                {
+                    b.Navigation("ReceiptItems");
                 });
 #pragma warning restore 612, 618
         }

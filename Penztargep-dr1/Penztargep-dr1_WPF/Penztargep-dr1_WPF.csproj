@@ -16,7 +16,9 @@
     <None Remove="Assets\Images\add.png" />
     <None Remove="Assets\Images\categories.png" />
     <None Remove="Assets\Images\logo.png" />
+    <None Remove="Assets\Images\print-receipt.png" />
     <None Remove="Assets\Images\products.png" />
+    <None Remove="Assets\Images\remove.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,7 +30,9 @@
     <Resource Include="Assets\Images\categories.png" />
     <Resource Include="Assets\Images\logo.png" />
     <Resource Include="Assets\Images\add.png" />
+    <Resource Include="Assets\Images\print-receipt.png" />
     <Resource Include="Assets\Images\products.png" />
+    <Resource Include="Assets\Images\remove.png" />
   </ItemGroup>
 
   <ItemGroup>

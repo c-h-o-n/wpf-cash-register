@@ -18,4 +18,10 @@
     <ProjectReference Include="..\Penztargep-dr1_Domain\Penztargep-dr1_Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Database.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

@@ -17,6 +17,37 @@ namespace Penztargep_dr1_EntityFramework {
 
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder) {
+            // user - employee
+            //modelBuilder.Entity<Employee>()
+            //  .HasOne(a => a.User)
+            //  .WithOne(b => b.Employee)
+            //  .HasForeignKey<User>(b => b.EmployeeId);
+
+            // employee < receipt
+            modelBuilder.Entity<Employee>()
+                .HasMany(position => position.Receipts)
+                .WithOne(e => e.Employee)
+                .HasForeignKey(employee => employee.EmployeeId);
+
+            //receipt < receipt_item
+            modelBuilder.Entity<Receipt>()
+            .HasMany(ri => ri.ReceiptItems)
+            .WithOne(r => r.Receipt)
+            .HasForeignKey(r => r.ReceiptId);
+            //product < receipt_item
+            modelBuilder.Entity<Product>()
+            .HasMany(ri => ri.ReceiptItems)
+            .WithOne(p => p.Product)
+            .HasForeignKey(p => p.ProductId);
+
+            // category < product
+            //modelBuilder.Entity<Category>()
+            //.HasMany(c => c.Products)
+            //.WithOne(e => e.Category);
+            //base.OnModelCreating(modelBuilder);
+        }
+
 
     }
 }
