@@ -57,6 +57,7 @@ namespace Penztargep_dr1_WPF {
             services.AddSingleton<IDataService<Employee>, GenericDataService<Employee>>();
             services.AddSingleton<IDataService<Product>, GenericDataService<Product>>();
             services.AddSingleton<ISellingService, SellingService>();
+            services.AddSingleton<IPdfService, PdfService>();
 
 
             // Viewmodels

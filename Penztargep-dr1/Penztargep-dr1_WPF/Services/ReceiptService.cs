@@ -16,14 +16,16 @@ namespace Penztargep_dr1_WPF.Services {
         private readonly IAuthenticator _authenticator;
         private readonly IDataService<Employee> _employeeService;
         private readonly IDataService<Product> _productService;
+        private readonly IPdfService _pdfService;
 
-        public ReceiptService(ISellingService sellingService, IAuthenticator authenticator, IDataService<Employee> employeeService, IDataService<Product> productService) {
+        public ReceiptService(ISellingService sellingService, IAuthenticator authenticator, IDataService<Employee> employeeService, IDataService<Product> productService, IPdfService pdfService) {
             _sellingService = sellingService;
             _authenticator = authenticator;
 
             Items = new ObservableCollection<ReceiptItem>();
             _employeeService = employeeService;
             _productService = productService;
+            _pdfService = pdfService;
         }
 
         private ObservableCollection<ReceiptItem> _items;
@@ -45,6 +47,7 @@ namespace Penztargep_dr1_WPF.Services {
                 Total = this.Total,
                 EmployeeId = currentEmployee.Id
             };
+            _pdfService.CreatePdfReceipt(receipt, Items);
             return await _sellingService.SellProducts(receipt, Items);
         } 
         
