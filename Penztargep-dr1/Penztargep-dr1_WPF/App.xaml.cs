@@ -27,8 +27,6 @@ namespace Penztargep_dr1_WPF {
 
         protected override void OnStartup(StartupEventArgs e) {
             IServiceProvider serviceProvider = CreateServiceProvider();
-            IAuthenticationService authentication = serviceProvider.GetRequiredService<IAuthenticationService>();
-            authentication.Register("asd", "asd", "asd", "John", "Doe", "TitleTest");
             Window window = serviceProvider.GetRequiredService<LoginView>();
             window.Show();
 
