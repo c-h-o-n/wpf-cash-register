@@ -98,6 +98,8 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+        <Setter Property="FontFamily" Value="{StaticResource IBMPlexSans}"/>
+        <Setter Property="FontSize" Value="35"/>
     </Style>
     
     <!-- Enter button -->
@@ -316,6 +318,9 @@
                         <Border.BorderBrush>
                             <SolidColorBrush Color="#20B2AA"/>
                         </Border.BorderBrush>
+                        <Border.Background>
+                            <SolidColorBrush Color="Transparent"/>
+                        </Border.Background>
                         <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                     </Border>
                 </ControlTemplate>

@@ -22,8 +22,9 @@
         <KeyBinding Key="Backspace" Command="{Binding InputService.InputKeyCommand}" CommandParameter="BACKSPACE"/>
         <KeyBinding Key="Backspace" Modifiers="Ctrl" Command="{Binding InputService.InputKeyCommand}" CommandParameter="CLEAR"/>
     </UserControl.InputBindings>
-    
+
     <Border Background="#EFEFEF" CornerRadius="10, 0, 0, 0">
+
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -31,7 +32,7 @@
             </Grid.ColumnDefinitions>
 
             <!-- Cash register -->
-            <Grid Grid.Column="0">
+            <Grid Grid.Column="0" IsEnabled="{Binding StateManager.CurrentState}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="3*"/>
                     <ColumnDefinition Width="*"/>
@@ -217,7 +218,7 @@
                 </Border>
                 
              <!--Open/Close cash register-->
-            <Button Grid.Row="2" Content="PÉNZTÁR ZÁRÁSA" Style="{StaticResource CashRegisterControlButtonStyle}"/>
+            <Button DataContext="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataContext.StateManager}" Grid.Row="2" Content="{Binding ControlButtonText}" Command="{Binding ToggleState}" Style="{StaticResource CashRegisterControlButtonStyle}"/>
             </Grid>
         </Grid>
     </Border>

@@ -54,6 +54,8 @@ namespace Penztargep_dr1_WPF.Services {
                     _pdfService.CreatePdfReceipt(receipt, Items);
                     _sellingService.SellProducts(receipt, Items);
 
+                    CancelReceiptCommand.Execute(null);
+
                 } catch (Exception) {
 
                     

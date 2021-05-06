@@ -14,6 +14,7 @@ using Penztargep_dr1_EntityFramework;
 using Penztargep_dr1_EntityFramework.Services;
 using Penztargep_dr1_WPF.Services;
 using Penztargep_dr1_WPF.State.Authenticators;
+using Penztargep_dr1_WPF.State.CashRegister;
 using Penztargep_dr1_WPF.State.Navigators;
 using Penztargep_dr1_WPF.ViewModels;
 using Penztargep_dr1_WPF.ViewModels.Factories;
@@ -52,6 +53,7 @@ namespace Penztargep_dr1_WPF {
             services.AddSingleton<IDataService<ReceiptItem>, GenericDataService<ReceiptItem>>();
             services.AddSingleton<IInputService, InputService>();
             services.AddSingleton<IReceiptService, ReceiptService>();
+            services.AddSingleton<IStateManager, StateManager>();
             services.AddSingleton<IDataService<Employee>, GenericDataService<Employee>>();
             services.AddSingleton<IDataService<Product>, GenericDataService<Product>>();
             services.AddSingleton<ISellingService, SellingService>();
