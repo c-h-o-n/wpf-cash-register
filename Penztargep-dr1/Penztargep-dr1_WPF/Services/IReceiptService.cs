@@ -10,8 +10,9 @@ namespace Penztargep_dr1_WPF.Services {
         void AddItem(ReceiptItem receiptItem);
         ICommand CreateReceiptCommand { get; }
         ICommand CancelReceiptCommand { get; }
+        ICommand RemoveReceiptItemCommand { get; }
         int Total { get; set; }
-        String NumberOfItems { get; set; }
+        int NumberOfItems { get; set; }
         ObservableCollection<ReceiptItem> Items { get; set; }
     }
 }

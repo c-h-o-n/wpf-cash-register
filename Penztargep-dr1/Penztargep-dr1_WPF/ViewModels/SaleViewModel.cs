@@ -16,7 +16,7 @@ namespace Penztargep_dr1_WPF.ViewModels {
         private readonly IProductService _productService;
         private readonly IDataService<Category> _categoryService;
 
-        public ISaleInputService SaleInputService { get; set; }
+        public IInputService InputService { get; set; }
         public IReceiptService ReceiptService { get; set; }
 
         private IEnumerable<Product> _products;
@@ -26,7 +26,7 @@ namespace Penztargep_dr1_WPF.ViewModels {
                 base.OnPropertyChanged(nameof(Products));
             }
         }
-        public  IEnumerable<Category> Categories { get; set; }
+        public  IList<Category> Categories { get; set; }
 
         private ICommand _updateCurrentCategoryCommand;
         public ICommand UpdateCurrentCategoryCommand {
@@ -37,6 +37,8 @@ namespace Penztargep_dr1_WPF.ViewModels {
                             if (parameter != null) {
                                 Task<Category> currentCategory = _categoryService.Get((int)parameter);
                                 Products = _productService.GetByCategory(currentCategory.Result).Result;
+                            } else {
+                                Products = _productService.GetAll().Result;
                             }
                         },
                         parameter => true);
@@ -44,15 +46,17 @@ namespace Penztargep_dr1_WPF.ViewModels {
                 return _updateCurrentCategoryCommand;
             }
         }
+        
+        public bool IsChecked { get; set; }
 
-
-        public SaleViewModel(IProductService productService, IDataService<Category> categoryService, ISaleInputService saleInputService, IReceiptService receiptService) {
+        public SaleViewModel(IProductService productService, IDataService<Category> categoryService, IInputService inputService, IReceiptService receiptService) {
             _productService = productService;
             _categoryService = categoryService;
-            Categories = _categoryService.GetAll().Result;
-            Products = _productService.GetAll().Result;
-            SaleInputService = saleInputService;
+            InputService = inputService;
             ReceiptService = receiptService;
+            Categories = (IList<Category>)_categoryService.GetAll().Result;
+            Products = _productService.GetAll().Result;
+
 
 
         }

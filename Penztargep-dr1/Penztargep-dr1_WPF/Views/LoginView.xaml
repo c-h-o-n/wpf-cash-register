@@ -59,17 +59,17 @@
                 <Border.BorderBrush>
                     <SolidColorBrush Color="Black" Opacity=".2"/>
                 </Border.BorderBrush>
-                <TextBox Text="{Binding Username, Mode=TwoWay}"  Style="{DynamicResource IBMPlexSans-Bold}" FontSize="20" BorderThickness="0" Background="Transparent" Foreground="Black" Opacity=".25" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding Username, Mode=TwoWay}" FontFamily="{DynamicResource IBMPlexSans}" FontSize="20" BorderThickness="0" Background="Transparent" Foreground="Black" Opacity=".25" VerticalAlignment="Center"/>
             </Border>
             <!-- Password input -->
             <Border Grid.Row="3" BorderThickness="2" CornerRadius="5"  Height="45" Width="258" VerticalAlignment="Center">
                 <Border.BorderBrush>
                     <SolidColorBrush Color="Black" Opacity=".2"/>
                 </Border.BorderBrush>
-                <TextBox Text="{Binding Password, Mode=TwoWay}"  Style="{DynamicResource IBMPlexSans-Bold}" FontSize="20" BorderThickness="0" Background="Transparent" Foreground="Black" Opacity=".25" VerticalAlignment="Center"/>
+                <TextBox Text="{Binding Password, Mode=TwoWay}" FontFamily="{DynamicResource IBMPlexSans}" FontSize="20" BorderThickness="0" Background="Transparent" Foreground="Black" Opacity=".25" VerticalAlignment="Center"/>
             </Border>
             <!-- Login button -->
-            <Button x:Name="btnLogin" Grid.Row="4" Command="{Binding LoginCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}" Height="37" Width="150"  Content="Belépés" Style="{DynamicResource RoundedButtonStyle}" FontSize="20" IsDefault="True" Foreground="Black" Opacity=".25" />
+            <Button x:Name="btnLogin" Grid.Row="4"  Command="{Binding LoginCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window}}" Height="37" Width="150"  Content="Belépés" Style="{DynamicResource RoundedButtonStyle}" FontSize="20" IsDefault="True" Foreground="Black" Opacity=".25" FontFamily="{DynamicResource IBMPlexSans}" />
         </Grid>
     </Border>
 

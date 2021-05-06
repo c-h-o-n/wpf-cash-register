@@ -13,10 +13,16 @@ namespace Penztargep_dr1_EntityFramework.Services {
         }
 
 
-
+        
         public async Task<IEnumerable<Product>> GetByCategory(Category category) {
             using (PenztargepDbContext context = _contextFactory.CreateDbContext()) {
                 return await context.Products.Include(p => p.Category).Where(p => p.Category == category).ToListAsync();
+            }
+        }
+
+        public async Task<Product> GetByCode(int code) {
+            using (PenztargepDbContext context = _contextFactory.CreateDbContext()) {
+                return await context.Products.FirstOrDefaultAsync((entity) => entity.Code == code);
             }
         }
     }

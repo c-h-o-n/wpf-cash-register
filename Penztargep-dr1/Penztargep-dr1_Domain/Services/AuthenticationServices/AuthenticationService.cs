@@ -21,6 +21,10 @@ namespace Penztargep_dr1_Domain.Services.AuthenticationServices {
         public async Task<User> Login(string username, string password) {
             User storedUser = await _userService.GetByUsername(username);
 
+            if (storedUser == null) {
+                throw new Exception();
+            }
+
             PasswordVerificationResult passwordVerificationResult = _passwordHasher.VerifyHashedPassword(storedUser.PasswordHash, password);
 
             if (passwordVerificationResult != PasswordVerificationResult.Success) {

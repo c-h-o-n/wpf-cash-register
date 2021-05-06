@@ -12,27 +12,43 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Assets\Fonts\Fake-receipt.ttf" />
     <None Remove="Assets\Fonts\IBMPlexSans-Bold.ttf" />
+    <None Remove="Assets\Fonts\IBMPlexSans-Regular.ttf" />
     <None Remove="Assets\Images\add.png" />
+    <None Remove="Assets\Images\backspace.png" />
     <None Remove="Assets\Images\categories.png" />
+    <None Remove="Assets\Images\clear.png" />
     <None Remove="Assets\Images\logo.png" />
     <None Remove="Assets\Images\print-receipt.png" />
     <None Remove="Assets\Images\products.png" />
+    <None Remove="Assets\Images\remove-receipt-item.png" />
     <None Remove="Assets\Images\remove.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="iTextSharp" Version="5.5.13.2" />
+    <PackageReference Include="itext7" Version="7.1.15" />
     <PackageReference Include="MahApps.Metro.IconPacks.Material" Version="4.8.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Assets\Fonts\IBMPlexSans-Bold.ttf" />
+    <Resource Include="Assets\Fonts\Fake-receipt.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Fonts\IBMPlexSans-Bold.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Fonts\IBMPlexSans-Regular.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Images\backspace.png" />
     <Resource Include="Assets\Images\categories.png" />
+    <Resource Include="Assets\Images\clear.png" />
     <Resource Include="Assets\Images\logo.png" />
     <Resource Include="Assets\Images\add.png" />
     <Resource Include="Assets\Images\print-receipt.png" />
     <Resource Include="Assets\Images\products.png" />
+    <Resource Include="Assets\Images\remove-receipt-item.png" />
     <Resource Include="Assets\Images\remove.png" />
   </ItemGroup>
 

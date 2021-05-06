@@ -7,7 +7,14 @@
     <Color x:Key="ColorSecondary">#87CEFA</Color>
     <Color x:Key="ProductButtonBorder">#707070</Color>
     <Color x:Key="ProductButtonBackground">#E5E5E5</Color>
-    
+    <!-- Font -->
+    <Style x:Key="Hatten">
+        <Setter Property="TextElement.FontFamily" Value="Resources/IBMPlexSans-regular" />
+    </Style>
+
+    <FontFamily x:Key="FakeReceipt">pack://application:,,,/Assets/Fonts/#Fake Receipt</FontFamily>
+    <FontFamily x:Key="IBMPlexSans">pack://application:,,,/Assets/Fonts/#IBM Plex Sans</FontFamily>
+
     <!--Brushes -->
     <SolidColorBrush x:Key="BrushPrimary" Color="{StaticResource ColorPrimary}"/>
     <SolidColorBrush x:Key="BrushPrimaryDarker25" Color="{StaticResource ColorPrimaryDarker25}"/>
@@ -16,6 +23,8 @@
     <Style TargetType="Image">
         <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality"/>
     </Style>
+    
+    
     
     <!-- Rounded button -->
     <Style x:Key="RoundedButtonStyle" TargetType="Button">
@@ -45,9 +54,4 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
-    
-
-
-
 </ResourceDictionary>

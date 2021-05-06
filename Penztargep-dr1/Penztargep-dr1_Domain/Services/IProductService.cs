@@ -7,5 +7,7 @@ using System.Threading.Tasks;
 namespace Penztargep_dr1_Domain.Services {
     public interface IProductService : IDataService<Product> {
         Task<IEnumerable<Product>> GetByCategory(Category category);
+        Task<Product> GetByCode(int code);
+
     }
 }

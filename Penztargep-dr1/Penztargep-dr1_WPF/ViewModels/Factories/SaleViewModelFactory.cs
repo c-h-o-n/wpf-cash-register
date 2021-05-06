@@ -10,19 +10,19 @@ namespace Penztargep_dr1_WPF.ViewModels.Factories {
     public class SaleViewModelFactory : IPenztargepViewModelFactory<SaleViewModel> {
         private readonly IProductService _productService;
         private readonly IDataService<Category> _categoryService;
-        private readonly ISaleInputService _saleInputService;
+        private readonly IInputService _inputService;
         private readonly IReceiptService _receiptService;
 
 
-        public SaleViewModelFactory(IProductService productService, IDataService<Category> categoryService, ISaleInputService saleInputService, IReceiptService receiptService) {
+        public SaleViewModelFactory(IProductService productService, IDataService<Category> categoryService, IInputService saleInputService, IReceiptService receiptService) {
             _productService = productService;
             _categoryService = categoryService;
-            _saleInputService = saleInputService;
+            _inputService = saleInputService;
             _receiptService = receiptService;
         }
 
         public SaleViewModel CreateViewModel() {
-            return new SaleViewModel(_productService, _categoryService, _saleInputService, _receiptService);
+            return new SaleViewModel(_productService, _categoryService, _inputService, _receiptService);
         }
     }
 }

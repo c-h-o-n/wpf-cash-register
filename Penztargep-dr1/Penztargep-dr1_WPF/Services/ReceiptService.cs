@@ -15,17 +15,18 @@ namespace Penztargep_dr1_WPF.Services {
         private readonly ISellingService _sellingService;
         private readonly IAuthenticator _authenticator;
         private readonly IDataService<Employee> _employeeService;
-        private readonly IDataService<Product> _productService;
         private readonly IPdfService _pdfService;
 
-        public ReceiptService(ISellingService sellingService, IAuthenticator authenticator, IDataService<Employee> employeeService, IDataService<Product> productService, IPdfService pdfService) {
+        public ReceiptService(ISellingService sellingService, IAuthenticator authenticator, IDataService<Employee> employeeService, IPdfService pdfService) {
             _sellingService = sellingService;
             _authenticator = authenticator;
 
             Items = new ObservableCollection<ReceiptItem>();
             _employeeService = employeeService;
-            _productService = productService;
             _pdfService = pdfService;
+
+            Total = 0;
+            NumberOfItems = 0;
         }
 
         private ObservableCollection<ReceiptItem> _items;
@@ -39,21 +40,25 @@ namespace Penztargep_dr1_WPF.Services {
             }
         }
 
-
-        public async Task<Receipt> Sell() {
-            Employee currentEmployee = await _employeeService.Get(_authenticator.CurrentUser.Employee.Id);
-            Receipt receipt = new Receipt() {
-                Date = DateTime.Now.ToString(),
-                Total = this.Total,
-                EmployeeId = currentEmployee.Id
-            };
-            _pdfService.CreatePdfReceipt(receipt, Items);
-            return await _sellingService.SellProducts(receipt, Items);
-        } 
         
         public ICommand CreateReceiptCommand => new RelayCommand(
             parameter => {
-                Sell();
+                try {
+                    Employee currentEmployee = _employeeService.Get(_authenticator.CurrentUser.Employee.Id).Result;
+                    Receipt receipt = new Receipt() {
+                        Date = DateTime.Now.ToString(),
+                        Total = this.Total,
+                        EmployeeId = currentEmployee.Id
+                    };
+
+                    _pdfService.CreatePdfReceipt(receipt, Items);
+                    _sellingService.SellProducts(receipt, Items);
+
+                } catch (Exception) {
+
+                    
+                }
+
 
             }, parameter => true);
 
@@ -72,10 +77,10 @@ namespace Penztargep_dr1_WPF.Services {
         }
 
 
-        private string _numberOfItems;
-        public string NumberOfItems { 
+        private int _numberOfItems;
+        public int NumberOfItems { 
             get {
-                _numberOfItems = "Tételszám: " + Items.Count.ToString();
+                _numberOfItems = Items.Count;
                 return _numberOfItems;
             } set {
                 _numberOfItems = value;               
@@ -88,6 +93,16 @@ namespace Penztargep_dr1_WPF.Services {
                 base.OnPropertyChanged(nameof(Total));
                 base.OnPropertyChanged(nameof(NumberOfItems));
             }, parameter => true);
+
+        public ICommand RemoveReceiptItemCommand => new RelayCommand(
+            parameter => {
+                if (parameter is ReceiptItem receiptItem) { 
+                    Items.Remove(receiptItem);
+                    base.OnPropertyChanged(nameof(Total));
+                    base.OnPropertyChanged(nameof(NumberOfItems));
+                }
+            },
+            parameter => true);
 
         public void AddItem(ReceiptItem receiptItem) {
             Items.Add(receiptItem);

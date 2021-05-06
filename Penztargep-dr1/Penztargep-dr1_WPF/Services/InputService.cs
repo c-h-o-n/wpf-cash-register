@@ -4,16 +4,15 @@ using Penztargep_dr1_WPF.Commands;
 using Penztargep_dr1_WPF.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 using System.Windows.Input;
 
 namespace Penztargep_dr1_WPF.Services {
-    public class SaleInputService : ObservableObject, ISaleInputService {
-        private readonly ISellingService _sellingService;
+    public class InputService : ObservableObject, IInputService {
         private readonly IProductService _productService;
         private readonly IReceiptService _receiptService;
-        public SaleInputService(ISellingService sellingService, IProductService productService, IReceiptService receiptService) {
-            _sellingService = sellingService;
+        public InputService(IProductService productService, IReceiptService receiptService) {
             _productService = productService;
             _receiptService = receiptService;
             CurrentInput = String.Empty;
@@ -22,27 +21,32 @@ namespace Penztargep_dr1_WPF.Services {
 
         public ICommand InputKeyCommand => new RelayCommand(
             parameter => {
+                
                 if (parameter != null && _currentInput != null) {
                     switch ((string)parameter) {
-                        case "d":
+                        case "BACKSPACE":
                             CurrentInput = CurrentInput.Length > 0 ? CurrentInput.Remove(CurrentInput.Length - 1) : String.Empty;
                             break;
                         case "ENTER":
                             var inputs = SplitInput(CurrentInput);
                             int quantity = inputs[1];
-                            var product = _productService.Get(inputs[0]).Result;
-                            ReceiptItem receiptItem = new ReceiptItem() {
-                                Product = product,
-                                ProductId = product.Id,
-                                Quantity = quantity,
-                                Total = quantity * product.Price
-                            };
 
-                            _receiptService.AddItem(receiptItem);
+                            var product = _productService.GetByCode(inputs[0]).Result;
 
-                            
+                            if (product != null) {
+                                ReceiptItem receiptItem = new ReceiptItem() {
+                                    Product = product,
+                                    ProductId = product.Id,
+                                    Quantity = quantity,
+                                    Total = quantity * product.Price
+                                };
+
+                                _receiptService.AddItem(receiptItem);
+
+                                CurrentInput = "";
+                            }
                             break;
-                        case "c":
+                        case "CLEAR":
                             CurrentInput = "";
                             break;
                         default:
@@ -61,6 +65,16 @@ namespace Penztargep_dr1_WPF.Services {
                 base.OnPropertyChanged(nameof(CurrentInput));
             }
         }
+
+        public ICommand ProductClickCommand => new RelayCommand(
+            parameter => {
+                if (parameter is int code) {
+                    CurrentInput = code.ToString();
+                }
+            },
+            parameter => true);
+
+
 
         public int[] SplitInput(string InputString) {
             int[] inputs = new int[2];

@@ -6,6 +6,23 @@
              xmlns:local="clr-namespace:Penztargep_dr1_WPF.Views" 
              mc:Ignorable="d" 
              d:DesignHeight="1000" d:DesignWidth="1500">
+    
+    <UserControl.InputBindings>
+        <KeyBinding Key="NumPad1" Command="{Binding InputService.InputKeyCommand}" CommandParameter="1"/>
+        <KeyBinding Key="NumPad2" Command="{Binding InputService.InputKeyCommand}" CommandParameter="2"/>
+        <KeyBinding Key="NumPad3" Command="{Binding InputService.InputKeyCommand}" CommandParameter="3"/>
+        <KeyBinding Key="NumPad4" Command="{Binding InputService.InputKeyCommand}" CommandParameter="4"/>
+        <KeyBinding Key="NumPad5" Command="{Binding InputService.InputKeyCommand}" CommandParameter="5"/>
+        <KeyBinding Key="NumPad6" Command="{Binding InputService.InputKeyCommand}" CommandParameter="6"/>
+        <KeyBinding Key="NumPad7" Command="{Binding InputService.InputKeyCommand}" CommandParameter="7"/>
+        <KeyBinding Key="NumPad8" Command="{Binding InputService.InputKeyCommand}" CommandParameter="8"/>
+        <KeyBinding Key="NumPad9" Command="{Binding InputService.InputKeyCommand}" CommandParameter="9"/>
+        <KeyBinding Key="Multiply" Command="{Binding InputService.InputKeyCommand}" CommandParameter="*"/>
+        <KeyBinding Key="Return" Command="{Binding InputService.InputKeyCommand}" CommandParameter="ENTER"/>
+        <KeyBinding Key="Backspace" Command="{Binding InputService.InputKeyCommand}" CommandParameter="BACKSPACE"/>
+        <KeyBinding Key="Backspace" Modifiers="Ctrl" Command="{Binding InputService.InputKeyCommand}" CommandParameter="CLEAR"/>
+    </UserControl.InputBindings>
+    
     <Border Background="#EFEFEF" CornerRadius="10, 0, 0, 0">
         <Grid>
             <Grid.ColumnDefinitions>
@@ -19,33 +36,40 @@
                     <ColumnDefinition Width="3*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                
+
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition Height="4*"/>
                 </Grid.RowDefinitions>
-                
                 <!-- Categories -->
-                <ScrollViewer Grid.Row="0" Grid.ColumnSpan="2" Margin="100, 40, 100, 0" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled">
-                    <ItemsControl ItemsSource="{Binding Categories}">
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Button Content="{Binding Name}" Style="{StaticResource CategoryButtonStyle}" Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataContext.UpdateCurrentCategoryCommand}" CommandParameter="{Binding Id}"/>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel Orientation="Horizontal"/>
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                    </ItemsControl>
-                </ScrollViewer>
+                <StackPanel Margin="100, 40, 100, 0" Orientation="Horizontal" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Center">
+                    <RadioButton Content="Összes termék" Style="{StaticResource CategoryButtonStyle}" Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataContext.UpdateCurrentCategoryCommand}" VerticalAlignment="Top" IsChecked="True" />
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                        <ItemsControl ItemsSource="{Binding Categories}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <RadioButton IsChecked="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataContext.IsChecked}" Content="{Binding Name}" Style="{StaticResource CategoryButtonStyle}" Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataContext.UpdateCurrentCategoryCommand}" CommandParameter="{Binding Id}"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <StackPanel Orientation="Horizontal"/>
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </ScrollViewer>
+                </StackPanel>
                 <!-- Products -->
                 <ScrollViewer Grid.Row="1" Grid.Column="0" Margin="100, 20, 30, 0" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Visible">
                     <ItemsControl ItemsSource="{Binding Products}">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <Button Content="{Binding Name}" Style="{StaticResource ProductButtonStyle}"/>
+                                <Button Style="{StaticResource ProductButtonStyle}" Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataContext.InputService.ProductClickCommand}" CommandParameter="{Binding Code}">
+                                    <Grid Width="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Width}" Height="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Height}">
+                                        <Label Content="{Binding Name}" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
+                                        <Label Content="{Binding Code}"  VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="5" FontSize="12" ContentStringFormat=" {0:000 } "/>
+                                    </Grid>
+                                </Button>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                         <ItemsControl.ItemsPanel>
@@ -57,7 +81,7 @@
                 </ScrollViewer>
                 
                 <!-- Numpad -->
-                <Grid DataContext="{Binding SaleInputService}" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top">
+                <Grid DataContext="{Binding InputService}" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="67"/>    
                         <RowDefinition Height="*"/>
@@ -71,7 +95,7 @@
                         </Grid.ColumnDefinitions>
 
                         <!-- Code input field -->
-                        <TextBox Text="{Binding CurrentInput}"/>
+                        <Label Content="{Binding CurrentInput}" Style="{StaticResource InputFieldStyle}"/>
                         <Button Grid.Column="1" Content="*" Style="{StaticResource MultiplyButtonStyle}"/>
                     </Grid>
                     <!-- Keys -->
@@ -80,18 +104,18 @@
                             <UniformGrid.Resources>
                                 <Style TargetType="Button" BasedOn="{StaticResource NumpadButtonsStyle}"/>
                             </UniformGrid.Resources>
-                            <Button Content="1"/>
-                            <Button Content="2"/>
-                            <Button Content="3"/>
-                            <Button Content="4"/>
-                            <Button Content="5"/>
-                            <Button Content="6"/>
                             <Button Content="7"/>
                             <Button Content="8"/>
                             <Button Content="9"/>
-                            <Button Content="d"/>
+                            <Button Content="4"/>
+                            <Button Content="5"/>
+                            <Button Content="6"/>
+                            <Button Content="1"/>
+                            <Button Content="2"/>
+                            <Button Content="3"/>
+                            <Button Content="pack://application:,,,/Assets/Images/backspace.png" Style="{StaticResource NumpadButtonWithImageStyle}" CommandParameter="BACKSPACE"/>
                             <Button Content="0"/>
-                            <Button Content="c"/>
+                            <Button Content="pack://application:,,,/Assets/Images/clear.png" Style="{StaticResource NumpadButtonWithImageStyle}" CommandParameter="CLEAR" />
                         </UniformGrid>
                     </Viewbox>
                     <!-- Enter -->
@@ -107,19 +131,28 @@
                     <RowDefinition Height="50"/>
                 </Grid.RowDefinitions>
 
+                <Grid.Resources>
+                    <Style TargetType="Label">
+                        <Setter Property="FontFamily" Value="{StaticResource FakeReceipt}"/>
+                        <Setter Property="FontSize" Value="12"/>
+                    </Style>
+                </Grid.Resources>
 
-                
+
+                <!-- Head -->
                 <Border  Grid.Row="0" Background="White" BorderThickness="1" CornerRadius="5">
                     <Border.BorderBrush>
                         <SolidColorBrush Color="Black" Opacity=".2"/>
                     </Border.BorderBrush>
-                    <StackPanel>
-                        <Label Content="{Binding Total}"/>
-                        <Label Content="{Binding NumberOfItems}"/>
-                    </StackPanel>
+                    <Grid>
+                        <Viewbox Stretch="Uniform" Margin="5, 0">
+                            <Label Content="{Binding Total}" ContentStringFormat=' {0:# ### ### ### ##0 Ft}' HorizontalAlignment="Stretch" VerticalAlignment="Center" FontSize="50"/>
+                        </Viewbox>
+                        <Label Content="{Binding NumberOfItems}" ContentStringFormat='Tételszám: {0}' HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="17"/>
+                    </Grid>
                 </Border>
 
-
+                <!-- Body -->
                 <Border Grid.Row="1" x:Name="brdReceiptBody" Background="White" BorderThickness="1" CornerRadius="5" Margin="0, 30, 0, 40">
                     <Border.BorderBrush>
                         <SolidColorBrush Color="Black" Opacity=".2"/>
@@ -134,19 +167,38 @@
                             <ItemsControl ItemsSource="{Binding Items}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <DockPanel LastChildFill="False" HorizontalAlignment="Stretch">
-                                            <DockPanel.Resources>
-                                                <Style TargetType="TextBlock">
-                                                    <Setter Property="Background" Value="White"/>
-                                                </Style>
-                                            </DockPanel.Resources>
-                                            <TextBlock DockPanel.Dock="Left" Text="{Binding Product.Name}"/>
-                                            <TextBlock Padding="10,10"  Text="{Binding Quantity}"/>
-                                            <TextBlock  Padding="0,10" Text="*"/>
-                                            <TextBlock Padding="10,10" Text="{Binding Product.Price}"/>
-                                            <TextBlock VerticalAlignment="Center" DockPanel.Dock="Right" Text="{Binding Total}"/>
+                                        <Grid Tag="{Binding Path=DataContext, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}}">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition/>
+                                                <RowDefinition/>
+                                            </Grid.RowDefinitions>
 
-                                        </DockPanel>
+                                            <Grid.ContextMenu>
+                                                <ContextMenu DataContext="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource Self}}">
+                                                    <MenuItem Header="Törlés" Command="{Binding ReceiptService.RemoveReceiptItemCommand}" CommandParameter="{Binding DataContext, RelativeSource={RelativeSource TemplatedParent}}">
+                                                        <MenuItem.Icon>
+                                                            <Image Source="pack://application:,,,/Assets/Images/remove-receipt-item.png"/>
+                                                        </MenuItem.Icon>
+                                                    </MenuItem>
+                                                </ContextMenu>
+                                            </Grid.ContextMenu>
+
+                                            <Label Content="{Binding Product.Name}" Grid.Row="0" />
+                                            <Label Grid.Row="1" Margin="30, 0">
+                                                <Label.Content>
+                                                    <TextBlock>
+                                                        <TextBlock.Text>
+                                                            <MultiBinding StringFormat=" {0} * {1} ">
+                                                                <Binding Path="Quantity" />
+                                                                <Binding Path="Product.Price" />
+                                                            </MultiBinding>
+                                                        </TextBlock.Text>
+                                                    </TextBlock>
+                                                </Label.Content>
+                                            </Label>
+
+                                            <Label Content="{Binding Total}" ContentStringFormat=' {0:# ### ### ### ##0 Ft}' Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>
+                                        </Grid>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                                 <ItemsControl.ItemsPanel>
@@ -159,10 +211,11 @@
 
                         <DockPanel VerticalAlignment="Bottom" HorizontalAlignment="Stretch" Margin="15, 0, 15, 10" Grid.Row="1">
                             <Button  Content="pack://application:,,,/Assets/Images/print-receipt.png" Style="{StaticResource PrintButtonStyle}" Command="{Binding CreateReceiptCommand}"/>
-                            <Button  Content="pack://application:,,,/Assets/Images/remove.png" Style="{StaticResource RemoveButtonStyle}" Command="{Binding CancelReceiptCommand}"/>
+                            <Button  Content="pack://application:,,,/Assets/Images/remove.png" Style="{StaticResource CancelButtonStyle}" Command="{Binding CancelReceiptCommand}"/>
                         </DockPanel>
                     </Grid>
                 </Border>
+                
              <!--Open/Close cash register-->
             <Button Grid.Row="2" Content="PÉNZTÁR ZÁRÁSA" Style="{StaticResource CashRegisterControlButtonStyle}"/>
             </Grid>

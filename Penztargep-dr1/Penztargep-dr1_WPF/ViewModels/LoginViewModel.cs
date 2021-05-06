@@ -27,9 +27,10 @@ namespace Penztargep_dr1_WPF.ViewModels {
                 if (_loginCommand == null) {
                     _loginCommand = new RelayCommand(
                         parameter => {
-                            this.Login();
-                            WindowManager.Show<MainView>();
-                            WindowManager.Close(parameter);
+                            if (Authenticator.Login(Username, Password).Result) {
+                                WindowManager.Show<MainView>();
+                                WindowManager.Close(parameter);
+                            }
                         },
                         parameter => true);
                 }
@@ -56,11 +57,7 @@ namespace Penztargep_dr1_WPF.ViewModels {
         }
 
         public async void Login() {
-            try {
-                await Authenticator.Login(Username, Password);
-            } catch (Exception) {
-                throw new Exception("Login failed.");
-            }
+
         }
 
         public void OpenRegistrationWindow() {
