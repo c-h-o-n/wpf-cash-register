@@ -13,6 +13,7 @@ namespace Penztargep_dr1_Domain.Models {
         [Required]
         public int Price { get; set; }
         [Required]
+        public int CategoryId { get; set; }
         public Category Category { get; set; }
         public ICollection<ReceiptItem> ReceiptItems { get; set; }
 

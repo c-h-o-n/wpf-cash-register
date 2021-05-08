@@ -22,6 +22,8 @@ namespace Penztargep_dr1_WPF.Services {
             _authenticator = authenticator;
 
             Items = new ObservableCollection<ReceiptItem>();
+            CurrentSessionReceipts = new List<Receipt>();
+
             _employeeService = employeeService;
             _pdfService = pdfService;
 
@@ -40,6 +42,8 @@ namespace Penztargep_dr1_WPF.Services {
             }
         }
 
+        List<Receipt> CurrentSessionReceipts { get; set; }
+
         
         public ICommand CreateReceiptCommand => new RelayCommand(
             parameter => {
@@ -53,6 +57,8 @@ namespace Penztargep_dr1_WPF.Services {
 
                     _pdfService.CreatePdfReceipt(receipt, Items);
                     _sellingService.SellProducts(receipt, Items);
+                    CurrentSessionReceipts.Add(receipt);
+                    _pdfService.CreatePdfSummary(CurrentSessionReceipts);
 
                 } catch (Exception) {
 

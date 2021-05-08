@@ -8,5 +8,6 @@ namespace Penztargep_dr1_WPF.Services {
     public interface IPdfService {
         ICommand CreatePDFCommand { get; }
         void CreatePdfReceipt(Receipt receipt, IEnumerable<ReceiptItem> receiptItems);
+        void CreatePdfSummary(IEnumerable<Receipt> receipts);
     }
 }

@@ -42,10 +42,10 @@ namespace Penztargep_dr1_EntityFramework {
             .HasForeignKey(p => p.ProductId);
 
             // category < product
-            //modelBuilder.Entity<Category>()
-            //.HasMany(c => c.Products)
-            //.WithOne(e => e.Category);
-            //base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Category>()
+            .HasMany(c => c.Products)
+            .WithOne(e => e.Category);
+            base.OnModelCreating(modelBuilder);
         }
 
 
