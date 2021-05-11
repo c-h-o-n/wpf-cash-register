@@ -27,6 +27,9 @@ namespace Penztargep_dr1_WPF.State.Authenticators {
         /// <exception cref="InvalidPasswordException">Thrown if the password is invalid.</exception>
         /// <exception cref="Exception">Thrown if the login fails.</exception>
         Task<bool> Login(string username, string password);
+        /// <summary>
+        /// Logout from application.
+        /// </summary>
         void Logout();
     }
 }
