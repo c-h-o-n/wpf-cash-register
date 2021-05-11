@@ -22,8 +22,9 @@
         <KeyBinding Key="Backspace" Command="{Binding InputService.InputKeyCommand}" CommandParameter="BACKSPACE"/>
         <KeyBinding Key="Backspace" Modifiers="Ctrl" Command="{Binding InputService.InputKeyCommand}" CommandParameter="CLEAR"/>
     </UserControl.InputBindings>
-    
+
     <Border Background="#EFEFEF" CornerRadius="10, 0, 0, 0">
+
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -31,7 +32,7 @@
             </Grid.ColumnDefinitions>
 
             <!-- Cash register -->
-            <Grid Grid.Column="0">
+            <Grid Grid.Column="0" IsEnabled="{Binding StateManager.CurrentState}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="3*"/>
                     <ColumnDefinition Width="*"/>
@@ -67,7 +68,7 @@
                                 <Button Style="{StaticResource ProductButtonStyle}" Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataContext.InputService.ProductClickCommand}" CommandParameter="{Binding Code}">
                                     <Grid Width="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Width}" Height="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Height}">
                                         <Label Content="{Binding Name}" VerticalAlignment="Center" HorizontalAlignment="Center" FontWeight="Bold"/>
-                                        <Label Content="{Binding Code}"  VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="5" FontSize="12" ContentStringFormat=" {0:000 } "/>
+                                        <Label Content="{Binding Code}"  VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="5" FontSize="12" ContentStringFormat=" {0:000} "/>
                                     </Grid>
                                 </Button>
                             </DataTemplate>
@@ -148,7 +149,7 @@
                         <Viewbox Stretch="Uniform" Margin="5, 0">
                             <Label Content="{Binding Total}" ContentStringFormat=' {0:# ### ### ### ##0 Ft}' HorizontalAlignment="Stretch" VerticalAlignment="Center" FontSize="50"/>
                         </Viewbox>
-                        <Label Content="{Binding NumberOfItems}" ContentStringFormat='Tételszám: {0}' HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="17"/>
+                        <Label Content="{Binding Items.Count}" ContentStringFormat='Tételszám: {0}' HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="17"/>
                     </Grid>
                 </Border>
 
@@ -177,7 +178,7 @@
                                                 <ContextMenu DataContext="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource Self}}">
                                                     <MenuItem Header="Törlés" Command="{Binding ReceiptService.RemoveReceiptItemCommand}" CommandParameter="{Binding DataContext, RelativeSource={RelativeSource TemplatedParent}}">
                                                         <MenuItem.Icon>
-                                                            <Image Source="pack://application:,,,/Assets/Images/remove-receipt-item.png"/>
+                                                            <Image Source="pack://application:,,,/Assets/Images/remove_receipt_item.png"/>
                                                         </MenuItem.Icon>
                                                     </MenuItem>
                                                 </ContextMenu>
@@ -217,7 +218,7 @@
                 </Border>
                 
              <!--Open/Close cash register-->
-            <Button Grid.Row="2" Content="PÉNZTÁR ZÁRÁSA" Style="{StaticResource CashRegisterControlButtonStyle}"/>
+            <Button DataContext="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataContext.StateManager}" Grid.Row="2" Content="{Binding ControlButtonText}" Command="{Binding ToggleState}" Style="{StaticResource CashRegisterControlButtonStyle}"/>
             </Grid>
         </Grid>
     </Border>

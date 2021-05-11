@@ -22,8 +22,9 @@
     <None Remove="Assets\Images\logo.png" />
     <None Remove="Assets\Images\print-receipt.png" />
     <None Remove="Assets\Images\products.png" />
-    <None Remove="Assets\Images\remove-receipt-item.png" />
     <None Remove="Assets\Images\remove.png" />
+    <None Remove="Assets\Images\remove_receipt_item.png" />
+    <None Remove="Assets\Images\save.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -48,8 +49,9 @@
     <Resource Include="Assets\Images\add.png" />
     <Resource Include="Assets\Images\print-receipt.png" />
     <Resource Include="Assets\Images\products.png" />
-    <Resource Include="Assets\Images\remove-receipt-item.png" />
+    <Resource Include="Assets\Images\remove_receipt_item.png" />
     <Resource Include="Assets\Images\remove.png" />
+    <Resource Include="Assets\Images\save.png" />
   </ItemGroup>
 
   <ItemGroup>

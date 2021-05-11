@@ -3,11 +3,38 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Penztargep_dr1_WPF.Views"
+             xmlns:local="clr-namespace:Penztargep_dr1_WPF.Views" 
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <Label Content="Product"/>
+             d:DesignHeight="1000" d:DesignWidth="1500">
 
-    </Grid>
+    <Border Background="#EFEFEF" CornerRadius="10, 0, 0, 0">
+        <StackPanel>
+            <Label Content="Termékek" FontFamily="{StaticResource IBMPlexSans}" FontSize="60" FontWeight="Bold" HorizontalAlignment="Center"/>
+
+
+            <Button Content="pack://application:,,,/Assets/Images/add.png" Style="{StaticResource CreateProductButtonStyle}" Command="{Binding CreateProductCommand}" CommandParameter="{Binding Products}" Margin="0,0,0,15"></Button>
+
+
+            <DataGrid ItemsSource="{Binding Products, Mode=TwoWay, NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource EditProductDgStyle}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Kód" Binding="{Binding Code, Mode=TwoWay}"  Width="*"/>
+                    <DataGridTextColumn Header="Név" Binding="{Binding Name, Mode=TwoWay}"  Width="*"/>
+                    <DataGridTextColumn Header="Ár" Binding="{Binding Price, Mode=TwoWay}"  Width="*"/>
+                    <DataGridTextColumn Header="Kategória Id" Binding="{Binding CategoryId , Mode=TwoWay}"  Width="*" />
+                    <DataGridTemplateColumn Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Content="pack://application:,,,/Assets/Images/save.png" BorderBrush="{StaticResource BrushPrimary}" Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataContext.UpdateProductCommand}" CommandParameter="{Binding .}"  Style="{StaticResource ProductButtons}"/>
+                                    <Button Content="pack://application:,,,/Assets/Images/remove.png" BorderBrush="#dc2c28" Command="{Binding RelativeSource={RelativeSource AncestorType=UserControl}, Path=DataContext.DeleteProductCommand}" CommandParameter="{Binding Code}" Style="{StaticResource ProductButtons}"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+
+
+        </StackPanel>
+    </Border>
 </UserControl>

@@ -55,12 +55,5 @@ namespace Penztargep_dr1_WPF.ViewModels {
             Navigator = navigator;
             WindowManager = windowManager;
         }
-
-        public async void Login() {
-
-        }
-
-        public void OpenRegistrationWindow() {
-        }
     }
 }

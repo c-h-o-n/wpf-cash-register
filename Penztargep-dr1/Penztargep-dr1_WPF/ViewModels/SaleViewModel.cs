@@ -2,11 +2,13 @@
 using Penztargep_dr1_Domain.Services;
 using Penztargep_dr1_WPF.Commands;
 using Penztargep_dr1_WPF.Services;
+using Penztargep_dr1_WPF.State.CashRegister;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Penztargep_dr1_WPF.ViewModels {
@@ -16,13 +18,20 @@ namespace Penztargep_dr1_WPF.ViewModels {
         private readonly IProductService _productService;
         private readonly IDataService<Category> _categoryService;
 
+
+
+
         public IInputService InputService { get; set; }
         public IReceiptService ReceiptService { get; set; }
+        public IStateManager StateManager { get; set; }
 
         private IEnumerable<Product> _products;
         public IEnumerable<Product> Products {
-            get { return _products; }
-            set { _products = value;
+            get {
+                return _products;
+            }
+            set { 
+                _products = value;
                 base.OnPropertyChanged(nameof(Products));
             }
         }
@@ -46,14 +55,17 @@ namespace Penztargep_dr1_WPF.ViewModels {
                 return _updateCurrentCategoryCommand;
             }
         }
-        
+
         public bool IsChecked { get; set; }
 
-        public SaleViewModel(IProductService productService, IDataService<Category> categoryService, IInputService inputService, IReceiptService receiptService) {
+
+        public SaleViewModel(IProductService productService, IDataService<Category> categoryService, IInputService inputService, IReceiptService receiptService, IStateManager stateManager) {
             _productService = productService;
             _categoryService = categoryService;
             InputService = inputService;
             ReceiptService = receiptService;
+            StateManager = stateManager;
+
             Categories = (IList<Category>)_categoryService.GetAll().Result;
             Products = _productService.GetAll().Result;
 

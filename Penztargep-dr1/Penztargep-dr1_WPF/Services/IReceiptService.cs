@@ -13,6 +13,7 @@ namespace Penztargep_dr1_WPF.Services {
         ICommand RemoveReceiptItemCommand { get; }
         int Total { get; set; }
         int NumberOfItems { get; set; }
+        List<Receipt> CurrentSessionReceipts { get; set; }
         ObservableCollection<ReceiptItem> Items { get; set; }
     }
 }

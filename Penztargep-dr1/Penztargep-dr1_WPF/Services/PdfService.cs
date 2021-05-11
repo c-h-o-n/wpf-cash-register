@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -35,12 +36,16 @@ namespace Penztargep_dr1_WPF.Services {
 
         public ICommand CreatePDFCommand => throw new NotImplementedException();
 
+        private string FormatDate(string date) {
+            Regex pattern = new Regex("[:. ]");
+            return pattern.Replace(date, "");
+
+        }
+
         public void CreatePdfReceipt(Receipt receipt, IEnumerable<ReceiptItem> receiptItems) {
+            Directory.CreateDirectory("./receipts");
 
-            var exportFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            var exportFile = System.IO.Path.Combine(exportFolder, "Test.pdf");
-
-            using (var writer = new PdfWriter(exportFile)) {
+            using (var writer = new PdfWriter(String.Format("./receipts/{0}.pdf", FormatDate(receipt.Date)))) {
                 using (var pdf = new PdfDocument(writer)) {
                     Rectangle rectangle = new Rectangle(PageSize.A4);
                     var doc = new Document(pdf);
@@ -112,12 +117,15 @@ namespace Penztargep_dr1_WPF.Services {
 
 
         public void CreatePdfSummary(IEnumerable<Receipt> receipts) {
-            IEnumerable<ReceiptItem> receiptItems = _receiptItemService.GetAll().Result;
 
             var exportFolder = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             var exportFile = System.IO.Path.Combine(exportFolder, "Test-Summary.pdf");
 
-            using (var writer = new PdfWriter(exportFile)) {
+            Directory.CreateDirectory("./summaries");
+
+            IEnumerable<ReceiptItem> receiptItems = _receiptItemService.GetAll().Result;
+
+            using (var writer = new PdfWriter(String.Format("./summaries/{0}.pdf", FormatDate(DateTime.Now.ToString())))) {
                 using (var pdf = new PdfDocument(writer)) {
                     int totalValue = 0;
 
@@ -173,7 +181,7 @@ namespace Penztargep_dr1_WPF.Services {
                     foreach (var receipt in receipts) {
                         foreach (var item in receiptItems) {
                             if (receipt.Id == item.ReceiptId) {
-                                Product product =  _productService.Get(item.ProductId).Result;
+                                Product product = _productService.Get(item.ProductId).Result;
                                 Category category = _categoryService.Get(product.CategoryId).Result;
 
                                 Cell productCodeCell = new Cell();

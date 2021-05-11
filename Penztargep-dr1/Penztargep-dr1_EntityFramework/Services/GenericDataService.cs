@@ -28,6 +28,8 @@ namespace Penztargep_dr1_EntityFramework.Services {
             using (PenztargepDbContext context = _contextFactory.CreateDbContext()) {
                 T entity = await context.Set<T>().FirstOrDefaultAsync((entity) => entity.Id == id);
                 context.Set<T>().Remove(entity);
+                await context.SaveChangesAsync();
+
                 return true;
             }
         }

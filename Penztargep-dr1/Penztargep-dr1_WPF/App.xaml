@@ -13,6 +13,7 @@
                 <ResourceDictionary Source="/Styles/NavigationBar.xaml"/>
                 <ResourceDictionary Source="/Styles/WindowChrome.xaml"/>
                 <ResourceDictionary Source="/Styles/Sale.xaml"/>
+                <ResourceDictionary Source="/Styles/Product.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             
             <DataTemplate DataType="{x:Type viewmodels:SaleViewModel}">

@@ -5,14 +5,14 @@ using System.Text;
 
 namespace Penztargep_dr1_WPF.ViewModels.Factories {
     public class PenztargepViewModelAbstractFactory : IPenztargepViewModelAbstractFactory {
-        private readonly INavigationPenztargepViewModelFactory<LoginViewModel> _loginViewModelFactory;
         private readonly INavigationPenztargepViewModelFactory<MainViewModel> _mainViewModelFactory;
         private readonly IPenztargepViewModelFactory<SaleViewModel> _saleViewModelFactory;
+        private readonly IPenztargepViewModelFactory<ProductViewModel> _productViewModelFactory;
 
-        public PenztargepViewModelAbstractFactory(INavigationPenztargepViewModelFactory<LoginViewModel> loginViewModelFactory, INavigationPenztargepViewModelFactory<MainViewModel> mainViewModelFactory, IPenztargepViewModelFactory<SaleViewModel> saleViewModelFactory) {
-            _loginViewModelFactory = loginViewModelFactory;
+        public PenztargepViewModelAbstractFactory(INavigationPenztargepViewModelFactory<LoginViewModel> loginViewModelFactory, INavigationPenztargepViewModelFactory<MainViewModel> mainViewModelFactory, IPenztargepViewModelFactory<SaleViewModel> saleViewModelFactory, IPenztargepViewModelFactory<ProductViewModel> productViewModelFactory) {
             _mainViewModelFactory = mainViewModelFactory;
             _saleViewModelFactory = saleViewModelFactory;
+            _productViewModelFactory = productViewModelFactory;
         }
 
         public ViewModelBase CreateViewModel(ViewType viewType, INavigator navigator) {
@@ -22,7 +22,7 @@ namespace Penztargep_dr1_WPF.ViewModels.Factories {
                 case ViewType.Sale:
                     return _saleViewModelFactory.CreateViewModel();
                 case ViewType.Product:
-                    return new ProductViewModel();
+                    return _productViewModelFactory.CreateViewModel(); ;
                 case ViewType.Category:
                     return new CategoryViewModel();
                 default:

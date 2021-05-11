@@ -98,6 +98,8 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+        <Setter Property="FontFamily" Value="{StaticResource IBMPlexSans}"/>
+        <Setter Property="FontSize" Value="35"/>
     </Style>
     
     <!-- Enter button -->
@@ -119,7 +121,7 @@
     </Style>
 
     <!-- Print receipt button -->
-    <Style x:Key="PrintButtonStyle" TargetType="Button">
+    <Style x:Key="PrintButtonStyle" TargetType="Button" BasedOn="{StaticResource ButtonBase}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -137,11 +139,10 @@
         </Setter>
         <Setter Property="Width" Value="175"/>
         <Setter Property="Height" Value="50"/>
-        <Setter Property="Focusable" Value="False"/>
     </Style>
     
     <!-- Cancel receipt button -->
-    <Style x:Key="CancelButtonStyle" TargetType="Button">
+    <Style x:Key="CancelButtonStyle" TargetType="Button" BasedOn="{StaticResource ButtonBase}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
@@ -160,7 +161,6 @@
         <Setter Property="Width" Value="50"/>
         <Setter Property="Height" Value="50"/>
         <Setter Property="HorizontalAlignment" Value="Right"/>
-        <Setter Property="Focusable" Value="False"/>
     </Style>
 
     <!-- Product button -->
@@ -316,6 +316,9 @@
                         <Border.BorderBrush>
                             <SolidColorBrush Color="#20B2AA"/>
                         </Border.BorderBrush>
+                        <Border.Background>
+                            <SolidColorBrush Color="Transparent"/>
+                        </Border.Background>
                         <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
                     </Border>
                 </ControlTemplate>

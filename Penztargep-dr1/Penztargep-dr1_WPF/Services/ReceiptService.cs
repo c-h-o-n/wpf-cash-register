@@ -6,6 +6,7 @@ using Penztargep_dr1_WPF.State.Authenticators;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -42,7 +43,7 @@ namespace Penztargep_dr1_WPF.Services {
             }
         }
 
-        List<Receipt> CurrentSessionReceipts { get; set; }
+        public List<Receipt> CurrentSessionReceipts { get; set; }
 
         
         public ICommand CreateReceiptCommand => new RelayCommand(
@@ -55,13 +56,16 @@ namespace Penztargep_dr1_WPF.Services {
                         EmployeeId = currentEmployee.Id
                     };
 
-                    _pdfService.CreatePdfReceipt(receipt, Items);
-                    _sellingService.SellProducts(receipt, Items);
                     CurrentSessionReceipts.Add(receipt);
-                    _pdfService.CreatePdfSummary(CurrentSessionReceipts);
 
-                } catch (Exception) {
+                    _pdfService.CreatePdfReceipt(receipt, Items);
 
+                    _sellingService.SellProducts(receipt, Items);
+                    
+                    
+                    CancelReceiptCommand.Execute(null);
+                } catch (Exception e) {
+                    Trace.WriteLine(e);
                     
                 }
 
