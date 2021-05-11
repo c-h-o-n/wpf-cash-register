@@ -2,9 +2,7 @@
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Penztargep_dr1_Domain.Models;
 using Penztargep_dr1_Domain.Services;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Penztargep_dr1_EntityFramework.Services {
@@ -16,7 +14,7 @@ namespace Penztargep_dr1_EntityFramework.Services {
         }
 
         public async Task<T> Create(T entity) {
-            using(PenztargepDbContext context = _contextFactory.CreateDbContext()) {
+            using (PenztargepDbContext context = _contextFactory.CreateDbContext()) {
                 EntityEntry<T> createdResult = await context.Set<T>().AddAsync(entity);
                 await context.SaveChangesAsync();
 
@@ -52,10 +50,10 @@ namespace Penztargep_dr1_EntityFramework.Services {
         public async Task<T> Update(int id, T entity) {
             using (PenztargepDbContext context = _contextFactory.CreateDbContext()) {
                 entity.Id = id;
-                
+
                 context.Set<T>().Update(entity);
                 await context.SaveChangesAsync();
-                
+
                 return entity;
             }
         }

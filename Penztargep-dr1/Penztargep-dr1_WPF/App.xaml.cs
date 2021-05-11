@@ -1,10 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
 using Microsoft.AspNet.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Penztargep_dr1_Domain.Models;
@@ -19,6 +12,8 @@ using Penztargep_dr1_WPF.State.Navigators;
 using Penztargep_dr1_WPF.ViewModels;
 using Penztargep_dr1_WPF.ViewModels.Factories;
 using Penztargep_dr1_WPF.Views;
+using System;
+using System.Windows;
 
 namespace Penztargep_dr1_WPF {
     /// <summary>

@@ -2,9 +2,6 @@
 using Penztargep_dr1_WPF.Models;
 using Penztargep_dr1_WPF.ViewModels;
 using Penztargep_dr1_WPF.ViewModels.Factories;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Input;
 
 namespace Penztargep_dr1_WPF.State.Navigators {
@@ -16,7 +13,7 @@ namespace Penztargep_dr1_WPF.State.Navigators {
         }
 
         private ViewModelBase _currentViewModel;
-        public ViewModelBase CurrentViewModel { 
+        public ViewModelBase CurrentViewModel {
             get {
                 return _currentViewModel;
             }

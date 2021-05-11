@@ -1,8 +1,5 @@
 ﻿using Penztargep_dr1_WPF.State.Navigators;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
 
 namespace Penztargep_dr1_WPF.ViewModels {
     public class RegistrationViewModel : ViewModelBase {

@@ -1,43 +1,35 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Penztargep_dr1_EntityFramework.Migrations
-{
-    public partial class initial : Migration
-    {
-        protected override void Up(MigrationBuilder migrationBuilder)
-        {
+namespace Penztargep_dr1_EntityFramework.Migrations {
+    public partial class initial : Migration {
+        protected override void Up(MigrationBuilder migrationBuilder) {
             migrationBuilder.CreateTable(
                 name: "Categories",
-                columns: table => new
-                {
+                columns: table => new {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", nullable: false)
                 },
-                constraints: table =>
-                {
+                constraints: table => {
                     table.PrimaryKey("PK_Categories", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Employees",
-                columns: table => new
-                {
+                columns: table => new {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     FirstName = table.Column<string>(type: "TEXT", nullable: false),
                     LastName = table.Column<string>(type: "TEXT", nullable: false),
                     Title = table.Column<string>(type: "TEXT", nullable: false)
                 },
-                constraints: table =>
-                {
+                constraints: table => {
                     table.PrimaryKey("PK_Employees", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Products",
-                columns: table => new
-                {
+                columns: table => new {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Code = table.Column<int>(type: "INTEGER", nullable: false),
@@ -45,8 +37,7 @@ namespace Penztargep_dr1_EntityFramework.Migrations
                     Price = table.Column<int>(type: "INTEGER", nullable: false),
                     CategoryId = table.Column<int>(type: "INTEGER", nullable: true)
                 },
-                constraints: table =>
-                {
+                constraints: table => {
                     table.PrimaryKey("PK_Products", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Products_Categories_CategoryId",
@@ -58,16 +49,14 @@ namespace Penztargep_dr1_EntityFramework.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Receipts",
-                columns: table => new
-                {
+                columns: table => new {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Date = table.Column<string>(type: "TEXT", nullable: true),
                     Total = table.Column<int>(type: "INTEGER", nullable: false),
                     EmployeeId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
-                constraints: table =>
-                {
+                constraints: table => {
                     table.PrimaryKey("PK_Receipts", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Receipts_Employees_EmployeeId",
@@ -79,16 +68,14 @@ namespace Penztargep_dr1_EntityFramework.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Users",
-                columns: table => new
-                {
+                columns: table => new {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Username = table.Column<string>(type: "TEXT", nullable: false),
                     PasswordHash = table.Column<string>(type: "TEXT", nullable: false),
                     EmployeeId = table.Column<int>(type: "INTEGER", nullable: false)
                 },
-                constraints: table =>
-                {
+                constraints: table => {
                     table.PrimaryKey("PK_Users", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Users_Employees_EmployeeId",
@@ -100,8 +87,7 @@ namespace Penztargep_dr1_EntityFramework.Migrations
 
             migrationBuilder.CreateTable(
                 name: "ReceiptItems",
-                columns: table => new
-                {
+                columns: table => new {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     ReceiptId = table.Column<int>(type: "INTEGER", nullable: false),
@@ -109,8 +95,7 @@ namespace Penztargep_dr1_EntityFramework.Migrations
                     Quantity = table.Column<int>(type: "INTEGER", nullable: false),
                     Total = table.Column<int>(type: "INTEGER", nullable: false)
                 },
-                constraints: table =>
-                {
+                constraints: table => {
                     table.PrimaryKey("PK_ReceiptItems", x => x.Id);
                     table.ForeignKey(
                         name: "FK_ReceiptItems_Products_ProductId",
@@ -152,8 +137,7 @@ namespace Penztargep_dr1_EntityFramework.Migrations
                 column: "EmployeeId");
         }
 
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
+        protected override void Down(MigrationBuilder migrationBuilder) {
             migrationBuilder.DropTable(
                 name: "ReceiptItems");
 

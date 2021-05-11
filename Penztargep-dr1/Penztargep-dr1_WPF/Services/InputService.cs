@@ -3,9 +3,6 @@ using Penztargep_dr1_Domain.Services;
 using Penztargep_dr1_WPF.Commands;
 using Penztargep_dr1_WPF.Models;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
 using System.Windows.Input;
 
 namespace Penztargep_dr1_WPF.Services {
@@ -21,7 +18,7 @@ namespace Penztargep_dr1_WPF.Services {
 
         public ICommand InputKeyCommand => new RelayCommand(
             parameter => {
-                
+
                 if (parameter != null && _currentInput != null) {
                     switch ((string)parameter) {
                         case "BACKSPACE":

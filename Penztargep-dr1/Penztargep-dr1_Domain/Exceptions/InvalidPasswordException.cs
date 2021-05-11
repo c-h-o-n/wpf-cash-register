@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Runtime.Serialization;
-using System.Text;
 
 namespace Penztargep_dr1_Domain.Exceptions {
     public class InvalidPasswordException : Exception {

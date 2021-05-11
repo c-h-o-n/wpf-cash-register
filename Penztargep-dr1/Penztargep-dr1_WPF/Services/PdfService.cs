@@ -1,24 +1,16 @@
-using iText.IO.Font;
-using iText.Kernel.Colors;
-using iText.Kernel.Font;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
-using iText.Kernel.Pdf.Colorspace;
 using iText.Layout;
 using iText.Layout.Borders;
 using iText.Layout.Element;
 using iText.Layout.Properties;
-using Microsoft.Win32;
 using Penztargep_dr1_Domain.Models;
 using Penztargep_dr1_Domain.Services;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Input;
-using System.Windows.Media;
 
 namespace Penztargep_dr1_WPF.Services {
     public class PdfService : IPdfService {
@@ -236,5 +228,5 @@ namespace Penztargep_dr1_WPF.Services {
                 }
             }
         }
-    }      
+    }
 }

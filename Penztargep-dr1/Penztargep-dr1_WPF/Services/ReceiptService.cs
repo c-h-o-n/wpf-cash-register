@@ -7,8 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Penztargep_dr1_WPF.Services {
@@ -35,8 +33,9 @@ namespace Penztargep_dr1_WPF.Services {
         private ObservableCollection<ReceiptItem> _items;
         public ObservableCollection<ReceiptItem> Items {
             get {
-                return _items; }
-            set { 
+                return _items;
+            }
+            set {
                 _items = value;
                 base.OnPropertyChanged(nameof(Items));
 
@@ -45,7 +44,7 @@ namespace Penztargep_dr1_WPF.Services {
 
         public List<Receipt> CurrentSessionReceipts { get; set; }
 
-        
+
         public ICommand CreateReceiptCommand => new RelayCommand(
             parameter => {
                 try {
@@ -61,25 +60,27 @@ namespace Penztargep_dr1_WPF.Services {
                     _pdfService.CreatePdfReceipt(receipt, Items);
 
                     _sellingService.SellProducts(receipt, Items);
-                    
-                    
+
+
                     CancelReceiptCommand.Execute(null);
                 } catch (Exception e) {
                     Trace.WriteLine(e);
-                    
+
                 }
 
 
             }, parameter => true);
 
         private int _total;
-        public int Total { get {
+        public int Total {
+            get {
                 _total = 0;
                 foreach (var item in Items) {
                     _total += item.Total;
                 }
                 return _total;
-            } set {
+            }
+            set {
                 _total = value;
 
 
@@ -88,13 +89,14 @@ namespace Penztargep_dr1_WPF.Services {
 
 
         private int _numberOfItems;
-        public int NumberOfItems { 
+        public int NumberOfItems {
             get {
                 _numberOfItems = Items.Count;
                 return _numberOfItems;
-            } set {
-                _numberOfItems = value;               
-            } 
+            }
+            set {
+                _numberOfItems = value;
+            }
         }
 
         public ICommand CancelReceiptCommand => new RelayCommand(
@@ -106,7 +108,7 @@ namespace Penztargep_dr1_WPF.Services {
 
         public ICommand RemoveReceiptItemCommand => new RelayCommand(
             parameter => {
-                if (parameter is ReceiptItem receiptItem) { 
+                if (parameter is ReceiptItem receiptItem) {
                     Items.Remove(receiptItem);
                     base.OnPropertyChanged(nameof(Total));
                     base.OnPropertyChanged(nameof(NumberOfItems));

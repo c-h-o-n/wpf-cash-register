@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Text;
+﻿using System.ComponentModel;
 
 namespace Penztargep_dr1_WPF.ViewModels {
     public class ViewModelBase : INotifyPropertyChanged {

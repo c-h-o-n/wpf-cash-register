@@ -1,15 +1,7 @@
-﻿using Penztargep_dr1_Domain.Services.AuthenticationServices;
-using Penztargep_dr1_EntityFramework.Services;
-using Penztargep_dr1_WPF.Commands;
+﻿using Penztargep_dr1_WPF.Commands;
 using Penztargep_dr1_WPF.State.Authenticators;
 using Penztargep_dr1_WPF.State.Navigators;
 using Penztargep_dr1_WPF.Views;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Penztargep_dr1_WPF.ViewModels {
@@ -44,7 +36,7 @@ namespace Penztargep_dr1_WPF.ViewModels {
                 if (_RegistrationCommand == null) {
                     _RegistrationCommand = new RelayCommand(
                         parameter => WindowManager.Show<RegistrationView>(),
-                        parameter => true);; // TODO: check if reg window is already open
+                        parameter => true); ; // TODO: check if reg window is already open
                 }
                 return _RegistrationCommand;
             }

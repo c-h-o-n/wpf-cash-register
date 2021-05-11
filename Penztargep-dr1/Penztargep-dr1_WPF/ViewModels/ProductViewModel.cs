@@ -1,13 +1,7 @@
 ﻿using Penztargep_dr1_Domain.Models;
 using Penztargep_dr1_Domain.Services;
 using Penztargep_dr1_WPF.Commands;
-using Penztargep_dr1_WPF.State.Navigators;
-using Penztargep_dr1_WPF.Views;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Text;
 using System.Windows.Input;
 
 namespace Penztargep_dr1_WPF.ViewModels {

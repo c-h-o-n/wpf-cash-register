@@ -1,9 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Penztargep_dr1_Domain.Models;
 using Penztargep_dr1_Domain.Services;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Penztargep_dr1_EntityFramework.Services {

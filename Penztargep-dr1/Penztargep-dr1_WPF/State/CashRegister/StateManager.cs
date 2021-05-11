@@ -1,9 +1,6 @@
 ﻿using Penztargep_dr1_WPF.Commands;
 using Penztargep_dr1_WPF.Models;
 using Penztargep_dr1_WPF.Services;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Input;
 
 namespace Penztargep_dr1_WPF.State.CashRegister {
@@ -20,10 +17,11 @@ namespace Penztargep_dr1_WPF.State.CashRegister {
                 }
                 _controlButtonText = "Pénztár nyitása";
                 return _controlButtonText;
-            } set {
+            }
+            set {
                 _controlButtonText = value;
                 OnPropertyChanged(nameof(ControlButtonText));
-            } 
+            }
         }
 
         private bool _currentState;

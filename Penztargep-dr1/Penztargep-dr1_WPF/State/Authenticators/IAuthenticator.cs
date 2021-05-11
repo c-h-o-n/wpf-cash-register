@@ -1,8 +1,6 @@
 ﻿using Penztargep_dr1_Domain.Models;
 using Penztargep_dr1_Domain.Services.AuthenticationServices;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Penztargep_dr1_WPF.State.Authenticators {

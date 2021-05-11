@@ -1,8 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Penztargep_dr1_Domain.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Penztargep_dr1_EntityFramework {
     public class PenztargepDbContext : DbContext {

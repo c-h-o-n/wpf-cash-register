@@ -1,9 +1,4 @@
-﻿using Penztargep_dr1_Domain.Models;
-using Penztargep_dr1_Domain.Services;
-using Penztargep_dr1_WPF.State.Navigators;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Penztargep_dr1_Domain.Services;
 
 namespace Penztargep_dr1_WPF.ViewModels.Factories {
     public class ProductViewModelFactory : IPenztargepViewModelFactory<ProductViewModel> {

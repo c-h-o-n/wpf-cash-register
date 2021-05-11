@@ -3,12 +3,8 @@ using Penztargep_dr1_Domain.Services;
 using Penztargep_dr1_WPF.Commands;
 using Penztargep_dr1_WPF.Services;
 using Penztargep_dr1_WPF.State.CashRegister;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace Penztargep_dr1_WPF.ViewModels {
@@ -30,12 +26,12 @@ namespace Penztargep_dr1_WPF.ViewModels {
             get {
                 return _products;
             }
-            set { 
+            set {
                 _products = value;
                 base.OnPropertyChanged(nameof(Products));
             }
         }
-        public  IList<Category> Categories { get; set; }
+        public IList<Category> Categories { get; set; }
 
         private ICommand _updateCurrentCategoryCommand;
         public ICommand UpdateCurrentCategoryCommand {

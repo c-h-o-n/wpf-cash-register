@@ -1,10 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Penztargep_dr1_WPF.Commands;
-using Penztargep_dr1_WPF.ViewModels.Factories;
-using Penztargep_dr1_WPF.Views;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows;
 using System.Windows.Input;
 
@@ -16,7 +12,7 @@ namespace Penztargep_dr1_WPF.State.Navigators {
             _serviceProvider = serviceProvider;
         }
 
-        public Window Show<T>() where T : Window{
+        public Window Show<T>() where T : Window {
             Window window = _serviceProvider.GetRequiredService<T>();
             window.Show();
 
